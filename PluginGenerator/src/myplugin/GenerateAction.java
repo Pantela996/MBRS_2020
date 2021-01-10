@@ -35,7 +35,7 @@ class GenerateAction extends MDAction{
 	public void actionPerformed(ActionEvent evt) {
 		
 		if (Application.getInstance().getProject() == null) return;
-		Package root = Application.getInstance().getProject().getPrimaryModel();
+		Package root = Application.getInstance().getProject().getModel();
 		
 		if (root == null) return;
 	

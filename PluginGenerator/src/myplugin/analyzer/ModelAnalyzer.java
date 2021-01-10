@@ -7,6 +7,7 @@ import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMEnumeration;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMProperty;
+import myplugin.generator.fmmodel.FMType;
 
 import com.nomagic.uml2.ext.jmi.helpers.ModelHelper;
 import com.nomagic.uml2.ext.jmi.helpers.StereotypesHelper;
@@ -122,17 +123,18 @@ public class ModelAnalyzer {
 			throw new AnalyzeException("Property " + cl.getName() + "." +
 			p.getName() + " must have type!");
 		
-		String typeName = attType.getName();
-		if (typeName == null)
+		if (attType.getName() == null)
 			throw new AnalyzeException("Type ot the property " + cl.getName() + "." +
-			p.getName() + " must have name!");		
+			p.getName() + " must have name!");
+		FMType type = new FMType(attType.getName(), attType.getPackage().getName()) ;
+				
 			
 		int lower = p.getLower();
 		int upper = p.getUpper();
 		
-		FMProperty prop = new FMProperty(attName, typeName, p.getVisibility().toString(), 
+		FMProperty prop = new FMProperty(attName, type, p.getVisibility().toString(), 
 				lower, upper);
-		return prop;		
+		return prop;
 	}	
 	
 	private FMEnumeration getEnumerationData(Enumeration enumeration, String packageName) throws AnalyzeException {
