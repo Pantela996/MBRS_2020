@@ -18,6 +18,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
+import myplugin.generator.DomainGenerator;
 import myplugin.generator.EJBGenerator;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
@@ -39,20 +40,32 @@ class GenerateAction extends MDAction{
 		
 		if (root == null) return;
 	
-		ModelAnalyzer analyzer = new ModelAnalyzer(root, "ejb");	
+//		ModelAnalyzer analyzer = new ModelAnalyzer(root, "ejb");	
 		
+		ModelAnalyzer analyzer = null;
+		GeneratorOptions generatorOptions = null;
 		try {
-			analyzer.prepareModel();	
-			GeneratorOptions go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EJBGenerator");			
-			EJBGenerator generator = new EJBGenerator(go);
-			generator.generate();
+			generateDomain(analyzer, root, generatorOptions);
+//			analyzer.prepareModel();	
+//			GeneratorOptions go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EJBGenerator");			
+//			EJBGenerator generator = new EJBGenerator(go);
+//			generator.generate();
 			/**  @ToDo: Also call other generators */ 
-			JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
-					                         ", package: " + go.getFilePackage());
 			exportToXml();
 		} catch (AnalyzeException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		} 			
+	}
+	
+	private void generateDomain(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.domain");
+		analyzer.prepareModel();
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("DomainGenerator");
+		DomainGenerator ejbGenerator = new DomainGenerator(go);
+		ejbGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
+                ", package: " + go.getFilePackage());
+		
 	}
 	
 	private void exportToXml() {

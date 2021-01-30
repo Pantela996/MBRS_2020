@@ -37,9 +37,13 @@ public class DomainGenerator extends BasicGenerator {
 			Map<String, Object> context = new HashMap<String, Object>();
 			context.clear();
 			ArrayList<String> imports = new ArrayList<>();
-
+//			for (FMProperty prop : cl.getProperties()) {
+//				if (prop.getType().getTypePackage().equals("Data")) {
+//					
+//				}
+//			}
 			// TODO set imports
-			context.put("imports", "")
+			context.put("imports", imports);
 
 			try {
 				Writer out = getWriter(cl.getName(), cl.getTypePackage());
