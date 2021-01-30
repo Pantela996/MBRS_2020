@@ -17,6 +17,12 @@ ${class.visibility} class ${class.name} {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id; 
+	
+	<#list class.properties as property>
+	@Column
+	private ${property.type.name} ${property.name?uncap_first}
+	</#list>
+
 		
 	public ${class.name}(){}
 
