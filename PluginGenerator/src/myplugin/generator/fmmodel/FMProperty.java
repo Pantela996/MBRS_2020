@@ -11,6 +11,8 @@ public class FMProperty extends FMElement  {
 	//Multiplicity (upper value) 
 	private Integer upper;
 	
+	private String association;
+	
 	private Validation validation;
 	
 	public FMProperty(String name, FMType type, String visibility, int lower, int upper) {
@@ -19,7 +21,7 @@ public class FMProperty extends FMElement  {
 		this.visibility = visibility;
 		
 		this.lower = lower;
-		this.upper = upper;		
+		this.upper = upper;
 	}
 	
 	public FMType getType() {
@@ -50,4 +52,21 @@ public class FMProperty extends FMElement  {
 	public void setUpper(Integer upper) {
 		this.upper = upper;
 	}
+
+	public String getAssociation() {
+		return association;
+	}
+
+	public void setAssociation(String association) {
+		this.association = association;
+	}
+
+	public Validation getValidation() {
+		return validation;
+	}
+
+	public void setValidation(Validation validation) {
+		this.validation = validation;
+	}
+	
 }

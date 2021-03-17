@@ -8,6 +8,7 @@ import myplugin.generator.fmmodel.FMEnumeration;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.fmmodel.FMType;
+import myplugin.generator.fmmodel.Validation;
 
 import com.nomagic.uml2.ext.jmi.helpers.ModelHelper;
 import com.nomagic.uml2.ext.jmi.helpers.StereotypesHelper;
@@ -18,24 +19,25 @@ import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Class;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Enumeration;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Property;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Type;
+import com.nomagic.uml2.ext.magicdraw.mdprofiles.Stereotype;
 
+/**
+ * Model Analyzer takes necessary metadata from the MagicDraw model and puts it
+ * in the intermediate data structure (@see myplugin.generator.fmmodel.FMModel)
+ * optimized for code generation using freemarker. Model Analyzer now takes
+ * metadata only for ejb code generation
+ * 
+ * @ToDo: Enhance (or completely rewrite) myplugin.generator.fmmodel classes and
+ *        Model Analyzer methods in order to support GUI generation.
+ */
 
-/** Model Analyzer takes necessary metadata from the MagicDraw model and puts it in 
- * the intermediate data structure (@see myplugin.generator.fmmodel.FMModel) optimized
- * for code generation using freemarker. Model Analyzer now takes metadata only for ejb code 
- * generation
-
- * @ToDo: Enhance (or completely rewrite) myplugin.generator.fmmodel classes and  
- * Model Analyzer methods in order to support GUI generation. */ 
-
-
-public class ModelAnalyzer {	
-	//root model package
+public class ModelAnalyzer {
+	// root model package
 	private Package root;
-	
-	//java root package for generated code
+
+	// java root package for generated code
 	private String filePackage;
-	
+
 	public ModelAnalyzer(Package root, String filePackage) {
 		super();
 		this.root = root;
@@ -45,110 +47,155 @@ public class ModelAnalyzer {
 	public Package getRoot() {
 		return root;
 	}
-	
+
 	public void prepareModel() throws AnalyzeException {
 		FMModel.getInstance().getClasses().clear();
 		FMModel.getInstance().getEnumerations().clear();
 		processPackage(root, filePackage);
 	}
-	
+
 	private void processPackage(Package pack, String packageOwner) throws AnalyzeException {
-		//Recursive procedure that extracts data from package elements and stores it in the 
+		// Recursive procedure that extracts data from package elements and stores it in
+		// the
 		// intermediate data structure
-		
-		if (pack.getName() == null) throw  
-			new AnalyzeException("Packages must have names!");
-		
+
+		if (pack.getName() == null)
+			throw new AnalyzeException("Packages must have names!");
+
 		String packageName = packageOwner;
 		if (pack != root) {
 			packageName += "." + pack.getName();
 		}
-		
+
 		if (pack.hasOwnedElement()) {
-			
+
 			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
 				Element ownedElement = it.next();
 				if (ownedElement instanceof Class) {
-					Class cl = (Class)ownedElement;
+					Class cl = (Class) ownedElement;
 					FMClass fmClass = getClassData(cl, packageName);
 					FMModel.getInstance().getClasses().add(fmClass);
 				}
-				
+
 				if (ownedElement instanceof Enumeration) {
-					Enumeration en = (Enumeration)ownedElement;
+					Enumeration en = (Enumeration) ownedElement;
 					FMEnumeration fmEnumeration = getEnumerationData(en, packageName);
 					FMModel.getInstance().getEnumerations().add(fmEnumeration);
-				}								
+				}
 			}
-			
+
 			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
 				Element ownedElement = it.next();
-				if (ownedElement instanceof Package) {					
-					Package ownedPackage = (Package)ownedElement;
+				if (ownedElement instanceof Package) {
+					Package ownedPackage = (Package) ownedElement;
 					if (StereotypesHelper.getAppliedStereotypeByString(ownedPackage, "BusinessApp") != null)
-						//only packages with stereotype BusinessApp are candidates for metadata extraction and code generation:
+						// only packages with stereotype BusinessApp are candidates for metadata
+						// extraction and code generation:
 						processPackage(ownedPackage, packageName);
 				}
 			}
-			
-			/** @ToDo:
-			  * Process other package elements, as needed */ 
+
+			/**
+			 * @ToDo: Process other package elements, as needed
+			 */
 		}
 	}
-	
+
 	private FMClass getClassData(Class cl, String packageName) throws AnalyzeException {
-		if (cl.getName() == null) 
+		if (cl.getName() == null)
 			throw new AnalyzeException("Classes must have names!");
-		
+
 		FMClass fmClass = new FMClass(cl.getName(), packageName, cl.getVisibility().toString());
 		Iterator<Property> it = ModelHelper.attributes(cl);
 		while (it.hasNext()) {
 			Property p = it.next();
 			FMProperty prop = getPropertyData(p, cl);
-			fmClass.addProperty(prop);	
-		}	
-		
-		/** @ToDo:
-		 * Add import declarations etc. */		
+			fmClass.addProperty(prop);
+		}
+
+		/**
+		 * @ToDo: Add import declarations etc.
+		 */
 		return fmClass;
 	}
-	
+
 	private FMProperty getPropertyData(Property p, Class cl) throws AnalyzeException {
 		String attName = p.getName();
-		if (attName == null) 
-			throw new AnalyzeException("Properties of the class: " + cl.getName() +
-					" must have names!");
+		if (attName == null)
+			throw new AnalyzeException("Properties of the class: " + cl.getName() + " must have names!");
 		Type attType = p.getType();
 		if (attType == null)
-			throw new AnalyzeException("Property " + cl.getName() + "." +
-			p.getName() + " must have type!");
-		
+			throw new AnalyzeException("Property " + cl.getName() + "." + p.getName() + " must have type!");
+
 		if (attType.getName() == null)
-			throw new AnalyzeException("Type ot the property " + cl.getName() + "." +
-			p.getName() + " must have name!");
-		FMType type = new FMType(attType.getName(), attType.getPackage().getName()) ;
-				
-			
+			throw new AnalyzeException("Type ot the property " + cl.getName() + "." + p.getName() + " must have name!");
+		FMType type = new FMType(attType.getName(), attType.getPackage().getName());
+
 		int lower = p.getLower();
 		int upper = p.getUpper();
+
 		
-		FMProperty prop = new FMProperty(attName, type, p.getVisibility().toString(), 
-				lower, upper);
+		FMProperty prop = new FMProperty(attName, type, p.getVisibility().toString(), lower, upper);
+
+		Stereotype validationStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Validation");
+		Boolean unique = false;
+		Boolean notNull = false;
+		
+		if(validationStereotype != null) {
+			for (Property tag : validationStereotype.getOwnedAttribute()){
+				List tagValue = StereotypesHelper.getStereotypePropertyValue(p, validationStereotype, tag.getName());
+
+				if (tagValue.isEmpty()) continue;
+
+				switch(tag.getName()){
+					case "unique" : unique = (Boolean) tagValue.get(0); break;
+					case "notNull" : notNull = (Boolean) tagValue.get(0); break;
+				}
+			}
+		}
+		
+		Validation val = new Validation(unique, notNull);
+		prop.setValidation(val);
+		
+		String association;
+
+		if (upper == 1) {
+			if (p.getAssociation() != null) {
+				if (p.getAggregation().toString().toLowerCase() == "none") {
+					association = "@ManyToOne(fetch=FetchType.LAZY)";
+				} else {
+					association = "@OneToOne";
+				}
+			} else {
+				association = String.format("@Column(name=\"%s\"", attName.toLowerCase());
+				if (p.isUnique()) {
+					association += String.format(", unique=%s)", unique);
+				}else {
+					association += ")";
+				}
+			}
+		} else if (upper == -1) {
+			association = String.format("@OneToMany(mappedBy=\"%s\",cascade=CascadeType.REMOVE)", cl.getName().toLowerCase());
+		} else {
+			association = null;
+		}
+		
+		prop.setAssociation(association);
+
+		
 		return prop;
-	}	
-	
+	}
+
 	private FMEnumeration getEnumerationData(Enumeration enumeration, String packageName) throws AnalyzeException {
 		FMEnumeration fmEnum = new FMEnumeration(enumeration.getName(), packageName);
 		List<EnumerationLiteral> list = enumeration.getOwnedLiteral();
 		for (int i = 0; i < list.size() - 1; i++) {
 			EnumerationLiteral literal = list.get(i);
-			if (literal.getName() == null)  
-				throw new AnalyzeException("Items of the enumeration " + enumeration.getName() +
-				" must have names!");
+			if (literal.getName() == null)
+				throw new AnalyzeException("Items of the enumeration " + enumeration.getName() + " must have names!");
 			fmEnum.addValue(literal.getName());
 		}
 		return fmEnum;
-	}	
-	
-	
+	}
+
 }

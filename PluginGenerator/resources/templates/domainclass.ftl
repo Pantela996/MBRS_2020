@@ -16,8 +16,16 @@ ${class.visibility} class ${class.name} {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id; 
-		
+	private Long id;
+
+<#list properties as property>
+	<#if (property.association)??>
+	${property.association}
+	</#if>
+	${property.visibility} ${property.type.name} ${property.name};
+
+</#list>
+
 	public ${class.name}(){}
 
 	
