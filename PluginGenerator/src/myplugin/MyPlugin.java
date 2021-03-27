@@ -35,12 +35,19 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 //		ejbOptions.setTemplateDir(pluginDir + File.separator + ejbOptions.getTemplateDir()); //apsolutna putanja
 
 		domainOptions();
+		repositoryOptions();
 	}
 	
 	private void domainOptions() {
-//		C:\Users\Dejan\Desktop\MBRS_2020
+//		C:\Users\Dejan\Desktop\MBRS_20200
 		GeneratorOptions go = new GeneratorOptions("c:/Temp", "domainclass", "templates", "{0}.java", true, "uns.ac.rs.mbrs.domain");
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("DomainGenerator", go);
+		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
+	}
+	
+	private void repositoryOptions() {
+		GeneratorOptions go = new GeneratorOptions("c:/Temp", "repositoryclass", "templates", "{0}Repository.java", true, "uns.ac.rs.mbrs.repository");
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("RepositoryGenerator", go);
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
 

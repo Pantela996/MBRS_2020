@@ -13,8 +13,18 @@ public class Job {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private Long id; 
-		
+	
+	@Column(name="nameofposition", unique=false)
+	private String nameOfPosition
+	@OneToMany(mappedBy="job",cascade=CascadeType.REMOVE)
+	private Experience experience
+	@ManyToOne(fetch=FetchType.LAZY)
+	private JobOffer 
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Company company
+
 	public Job(){}
 
 	

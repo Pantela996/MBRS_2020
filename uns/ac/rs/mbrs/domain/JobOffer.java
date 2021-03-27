@@ -13,8 +13,16 @@ public class JobOffer {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private Long id; 
-		
+	
+	@Column(name="expirationdate", unique=false)
+	private date expirationDate
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Job 
+	@OneToMany(mappedBy="joboffer",cascade=CascadeType.REMOVE)
+	private Skill skill
+
 	public JobOffer(){}
 
 	

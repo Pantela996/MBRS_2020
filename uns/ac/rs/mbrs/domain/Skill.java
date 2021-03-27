@@ -13,8 +13,16 @@ public class Skill {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private Long id; 
-		
+	
+	@Column(name="name", unique=false)
+	private String name
+	@OneToMany(mappedBy="skill",cascade=CascadeType.REMOVE)
+	private JobOffer jobOffer
+	@OneToMany(mappedBy="skill",cascade=CascadeType.REMOVE)
+	private User user
+
 	public Skill(){}
 
 	

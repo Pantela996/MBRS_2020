@@ -13,8 +13,18 @@ public class Education {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private Long id; 
-		
+	
+	@Column(name="startdate", unique=false)
+	private date startDate
+	@Column(name="enddate", unique=false)
+	private date endDate
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Module module
+	@ManyToOne(fetch=FetchType.LAZY)
+	private User 
+
 	public Education(){}
 
 	

@@ -12,46 +12,36 @@ import javax.swing.JOptionPane;
 import freemarker.template.TemplateException;
 import myplugin.generator.fmmodel.FMClass;
 import myplugin.generator.fmmodel.FMModel;
-import myplugin.generator.fmmodel.FMProperty;
 import myplugin.generator.options.GeneratorOptions;
 
-public class DomainGenerator extends BasicGenerator {
+public class RepositoryGenerator extends BasicGenerator {
 
-	public DomainGenerator(GeneratorOptions generatorOptions) {
+	public RepositoryGenerator(GeneratorOptions generatorOptions) {
 		super(generatorOptions);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void generate() {
 		try {
 			super.generate();
 		} catch (IOException e) {
-//			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 		
 		List<FMClass> classes = FMModel.getInstance().getClasses();
-
-		for (FMClass cl : classes) {
 		
-			Map<String, Object> context = new HashMap<String, Object>(); 
+		for (FMClass cl : classes) {
+			
+			Map<String, Object> context = new HashMap<String, Object>();
 			context.clear();
 			ArrayList<String> imports = new ArrayList<>();
-//			for (FMProperty prop : cl.getProperties()) {
-//				if (prop.getType().getTypePackage().equals("Data")) {
-//					
-//				}
-//			}
-			// TODO set imports
+			
 			context.put("imports", imports);
-
+			
 			try {
 				Writer out = getWriter(cl.getName(), cl.getTypePackage());
 				if (out != null) {
 					context.put("class", cl);
-					context.put("properties", cl.getProperties());
-					context.put("importedPackages", cl.getImportedPackages());
-//					context.put("extendClass", cl.getBaseClassifier());
+					
 					getTemplate().process(context, out);
 					out.flush();
 				}
@@ -62,5 +52,4 @@ public class DomainGenerator extends BasicGenerator {
 			}
 		}
 	}
-
 }

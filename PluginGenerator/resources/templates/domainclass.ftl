@@ -20,7 +20,7 @@ ${class.visibility} class ${class.name} {
 	private Long id; 
 	
 	<#list class.properties as property>
-	@Column
+	${property.association}
 	private ${property.type.name} ${property.name?uncap_first}
 	</#list>
 

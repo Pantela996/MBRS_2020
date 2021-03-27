@@ -13,8 +13,12 @@ public class Discussion {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private Long id; 
-		
+	
+	@Column(name="topic", unique=false)
+	private String topic
+
 	public Discussion(){}
 
 	

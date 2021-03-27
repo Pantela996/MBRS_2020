@@ -13,8 +13,16 @@ public class Module {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private Long id; 
-		
+	
+	@Column(name="name", unique=false)
+	private String name
+	@OneToMany(mappedBy="module",cascade=CascadeType.REMOVE)
+	private Education education
+	@ManyToOne(fetch=FetchType.LAZY)
+	private EducationInsitution educationInstituion
+
 	public Module(){}
 
 	

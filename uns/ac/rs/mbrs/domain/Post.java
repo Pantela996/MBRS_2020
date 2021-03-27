@@ -13,8 +13,18 @@ public class Post {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private Long id; 
-		
+	
+	@Column(name="description", unique=false)
+	private String description
+	@Column(name="content", unique=false)
+	private String content
+	@Column(name="createdate", unique=false)
+	private date createDate
+	@ManyToOne(fetch=FetchType.LAZY)
+	private User user
+
 	public Post(){}
 
 	

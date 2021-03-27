@@ -13,8 +13,22 @@ public class Address {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	private Long id; 
-		
+	
+	@Column(name="street", unique=false)
+	private String street
+	@Column(name="city", unique=false)
+	private String city
+	@Column(name="country", unique=false)
+	private String country
+	@OneToMany(mappedBy="address",cascade=CascadeType.REMOVE)
+	private User user
+	@ManyToOne(fetch=FetchType.LAZY)
+	private Company 
+	@ManyToOne(fetch=FetchType.LAZY)
+	private EducationInsitution 
+
 	public Address(){}
 
 	
