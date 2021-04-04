@@ -18,8 +18,11 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
+import myplugin.generator.ControllerGenerator;
+import myplugin.generator.DTOGenerator;
 import myplugin.generator.DomainGenerator;
 import myplugin.generator.EJBGenerator;
+import myplugin.generator.EnumGenerator;
 import myplugin.generator.RepositoryGenerator;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
@@ -47,7 +50,14 @@ class GenerateAction extends MDAction{
 		GeneratorOptions generatorOptions = null;
 		try {
 			generateDomain(analyzer, root, generatorOptions);
+			generateEnumeration(analyzer, root, generatorOptions);
+			generateDto(analyzer, root, generatorOptions);
+			
 			generateRepository(analyzer, root, generatorOptions);
+			generateController(analyzer, root, generatorOptions);
+			
+			
+			
 //			analyzer.prepareModel();	
 //			GeneratorOptions go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EJBGenerator");			
 //			EJBGenerator generator = new EJBGenerator(go);
@@ -67,6 +77,31 @@ class GenerateAction extends MDAction{
 		ejbGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
                 ", package: " + go.getFilePackage());
+	}
+	
+	private void generateDto(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		// TODO Auto-generated method stub
+		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.dto");
+		analyzer.prepareModel();
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("DTOGenerator");
+		DTOGenerator enumGenerator = new DTOGenerator(go);
+		enumGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
+		exportToXml();
+	}
+	
+
+	private void generateEnumeration(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		// TODO Auto-generated method stub
+		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.model");
+		analyzer.prepareModel();
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EnumGenerator");
+		EnumGenerator enumGenerator = new EnumGenerator(go);
+		enumGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
+		exportToXml();
 		
 	}
 	
@@ -78,6 +113,18 @@ class GenerateAction extends MDAction{
 		ejbGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() + 
 				", package: " + go.getFilePackage());
+	}
+	
+	
+	private void generateController(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.controller");
+		analyzer.prepareModel();
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ControllerGenerator");
+		ControllerGenerator controllerGenerator = new ControllerGenerator(go);
+		controllerGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
+		exportToXml();
 	}
 
 	private void exportToXml() {
