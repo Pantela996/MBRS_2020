@@ -35,19 +35,44 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 //		ejbOptions.setTemplateDir(pluginDir + File.separator + ejbOptions.getTemplateDir()); //apsolutna putanja
 
 		domainOptions();
+		enumOptions();
+		dtoOptions();
+		
 		repositoryOptions();
+		controllerOptions();
 	}
 	
 	private void domainOptions() {
 //		C:\Users\Dejan\Desktop\MBRS_20200
 		GeneratorOptions go = new GeneratorOptions("c:/Temp", "domainclass", "templates", "{0}.java", true, "uns.ac.rs.mbrs.domain");
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("DomainGenerator", go);
+		System.out.print(pluginDir + File.separator + go.getTemplateDir());
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
+	
+	private void enumOptions() {
+		GeneratorOptions go = new GeneratorOptions("c:/Temp", "enum", "templates", "{0}.java", true, "uns.ac.rs.mbrs.model"); 				
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("EnumGenerator", go);
+		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
+	}
+	
+	private void dtoOptions() {
+		GeneratorOptions go = new GeneratorOptions("c:/Temp", "dtoclass", "templates", "{0}DTO.java", true, "uns.ac.rs.mbrs.dto"); 				
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("DTOGenerator", go);
+		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
+	}
+	
 	
 	private void repositoryOptions() {
 		GeneratorOptions go = new GeneratorOptions("c:/Temp", "repositoryclass", "templates", "{0}Repository.java", true, "uns.ac.rs.mbrs.repository");
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("RepositoryGenerator", go);
+		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
+	}
+	
+	
+	private void controllerOptions() {
+		GeneratorOptions go = new GeneratorOptions("c:/Temp", "controllerclass", "templates", "{0}Controller.java", true, "uns.ac.rs.mbrs.controller"); 				
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ControllerGenerator", go);
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
 
