@@ -36,6 +36,8 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 
 		domainOptions();
 		repositoryOptions();
+		serviceOptions();
+		serviceImplOptions();
 	}
 	
 	private void domainOptions() {
@@ -50,7 +52,21 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("RepositoryGenerator", go);
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
+	
+	private void serviceOptions() {
+		GeneratorOptions go = new GeneratorOptions("c:/Temp", "serviceclass", "templates", "{0}Service.java", true, "uns.ac.rs.mbrs.service");
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ServiceGenerator", go);
+		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
+	}
 
+	
+	private void serviceImplOptions() {
+		GeneratorOptions go = new GeneratorOptions("c:/Temp", "serviceimplclass", "templates", "{0}ServiceImpl.java", true, "uns.ac.rs.mbrs.serviceImpl");
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ServiceImplGenerator", go);
+		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
+	}
+
+	
 	private NMAction[] getSubmenuActions()
 	{
 	   return new NMAction[]{

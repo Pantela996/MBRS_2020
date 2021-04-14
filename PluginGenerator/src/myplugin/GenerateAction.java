@@ -21,6 +21,7 @@ import myplugin.analyzer.ModelAnalyzer;
 import myplugin.generator.DomainGenerator;
 import myplugin.generator.EJBGenerator;
 import myplugin.generator.RepositoryGenerator;
+import myplugin.generator.ServiceGenerator;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.ProjectOptions;
@@ -48,6 +49,8 @@ class GenerateAction extends MDAction{
 		try {
 			generateDomain(analyzer, root, generatorOptions);
 			generateRepository(analyzer, root, generatorOptions);
+			generateService(analyzer, root, generatorOptions);
+			generateServiceImpl(analyzer, root, generatorOptions);
 //			analyzer.prepareModel();	
 //			GeneratorOptions go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EJBGenerator");			
 //			EJBGenerator generator = new EJBGenerator(go);
@@ -80,6 +83,30 @@ class GenerateAction extends MDAction{
 				", package: " + go.getFilePackage());
 	}
 
+	private void generateService(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		// TODO Auto-generated method stub
+		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.service");
+		analyzer.prepareModel();
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceGenerator");
+		ServiceGenerator enumGenerator = new ServiceGenerator(go);
+		enumGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
+		exportToXml();
+	}
+	
+	private void generateServiceImpl(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		// TODO Auto-generated method stub
+		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.serviceImpl");
+		analyzer.prepareModel();
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceImplementationGenerator");
+		ServiceGenerator enumGenerator = new ServiceGenerator(go);
+		enumGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
+		exportToXml();
+	}
+	
 	private void exportToXml() {
 		if (JOptionPane.showConfirmDialog(null, "Do you want to save FM Model?") == 
 			JOptionPane.OK_OPTION)
