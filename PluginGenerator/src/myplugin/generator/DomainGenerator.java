@@ -37,11 +37,12 @@ public class DomainGenerator extends BasicGenerator {
 			Map<String, Object> context = new HashMap<String, Object>(); 
 			context.clear();
 			ArrayList<String> imports = new ArrayList<>();
-//			for (FMProperty prop : cl.getProperties()) {
-//				if (prop.getType().getTypePackage().equals("Data")) {
-//					
-//				}
-//			}
+			for (FMProperty prop : cl.getProperties()) {
+				if (prop.getType().getTypePackage().equals("Data")) {
+					imports.add(cl.getTypePackage()+"."+prop.getType().getName());
+					System.out.println(prop.getType().getTypePackage());
+				}
+			}
 			// TODO set imports
 			context.put("imports", imports);
 

@@ -27,6 +27,7 @@ import myplugin.generator.RepositoryGenerator;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.ProjectOptions;
+import myplugin.generator.views.IndexGenerator;
 
 /** Action that activate code generation */
 @SuppressWarnings("serial")
@@ -55,9 +56,9 @@ class GenerateAction extends MDAction{
 			
 			generateRepository(analyzer, root, generatorOptions);
 			generateController(analyzer, root, generatorOptions);
-			
-			
-			
+
+			generateIndexView(analyzer, root, generatorOptions);
+
 //			analyzer.prepareModel();	
 //			GeneratorOptions go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EJBGenerator");			
 //			EJBGenerator generator = new EJBGenerator(go);
@@ -68,29 +69,28 @@ class GenerateAction extends MDAction{
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		} 			
 	}
-	
+
 	private void generateDomain(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.domain");
 		analyzer.prepareModel();
 		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("DomainGenerator");
-		DomainGenerator ejbGenerator = new DomainGenerator(go);
-		ejbGenerator.generate();
+		DomainGenerator domainGenerator = new DomainGenerator(go);
+		domainGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
                 ", package: " + go.getFilePackage());
 	}
-	
+
 	private void generateDto(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
 		// TODO Auto-generated method stub
 		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.dto");
 		analyzer.prepareModel();
 		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("DTOGenerator");
-		DTOGenerator enumGenerator = new DTOGenerator(go);
-		enumGenerator.generate();
+		DTOGenerator dtoGenerator = new DTOGenerator(go);
+		dtoGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
 		exportToXml();
 	}
-	
 
 	private void generateEnumeration(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
 		// TODO Auto-generated method stub
@@ -104,17 +104,16 @@ class GenerateAction extends MDAction{
 		exportToXml();
 		
 	}
-	
+
 	private void generateRepository(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.repository");
 		analyzer.prepareModel();
 		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("RepositoryGenerator");
-		RepositoryGenerator ejbGenerator = new RepositoryGenerator(go);
-		ejbGenerator.generate();
+		RepositoryGenerator repositoryGenerator = new RepositoryGenerator(go);
+		repositoryGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() + 
 				", package: " + go.getFilePackage());
 	}
-	
 	
 	private void generateController(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.controller");
@@ -122,6 +121,17 @@ class GenerateAction extends MDAction{
 		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ControllerGenerator");
 		ControllerGenerator controllerGenerator = new ControllerGenerator(go);
 		controllerGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
+		exportToXml();
+	}
+	
+	private void generateIndexView(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "resources.templates");
+		analyzer.prepareModel();
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("IndexGenerator");
+		IndexGenerator indexGenerator = new IndexGenerator(go);
+		indexGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
 		exportToXml();

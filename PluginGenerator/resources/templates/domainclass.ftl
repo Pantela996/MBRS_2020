@@ -12,22 +12,23 @@ import ${import};
 
 @Table(name="${class.name?uncap_first}")
 @Entity
-${class.visibility} class ${class.name} {  
+${class.visibility} class ${class.name} {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 
-	private Long id; 
-	
-	
+	private Long id;
+
+
 	<#list class.properties as property>
 	${property.association}
-	private ${property.type.name} ${property.name?uncap_first}
+	private ${property.type.name} ${property.name?uncap_first};
+
 	</#list>
 
 	public ${class.name}(){}
 
-	
+
 	public Long getId(){
 		return id;
 	}
