@@ -84,6 +84,12 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
 
+	private void viewsEditOptions() {
+		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main", "editview", "templates", "{0}/edit.html", true, "resources.templates");
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("EditGenerator", go);
+		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
+	}
+
 	private NMAction[] getSubmenuActions()
 	{
 	   return new NMAction[]{

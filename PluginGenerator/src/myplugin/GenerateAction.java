@@ -28,6 +28,7 @@ import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.ProjectOptions;
 import myplugin.generator.views.IndexGenerator;
+import myplugin.generator.views.EditGenerator;
 
 /** Action that activate code generation */
 @SuppressWarnings("serial")
@@ -58,6 +59,7 @@ class GenerateAction extends MDAction{
 			generateController(analyzer, root, generatorOptions);
 
 			generateIndexView(analyzer, root, generatorOptions);
+			generateEditView(analyzer, root, generatorOptions);
 
 //			analyzer.prepareModel();	
 //			GeneratorOptions go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EJBGenerator");			
@@ -132,6 +134,17 @@ class GenerateAction extends MDAction{
 		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("IndexGenerator");
 		IndexGenerator indexGenerator = new IndexGenerator(go);
 		indexGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
+		exportToXml();
+	}
+
+	private void generateEditView(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "resources.templates");
+		analyzer.prepareModel();
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EditGenerator");
+		EditGenerator editGenerator = new EditGenerator(go);
+		editGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
 		exportToXml();
