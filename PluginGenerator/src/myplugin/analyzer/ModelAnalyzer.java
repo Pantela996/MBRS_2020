@@ -121,7 +121,7 @@ public class ModelAnalyzer {
 
 	private FMProperty getPropertyData(Property p, Class cl) throws AnalyzeException {
 		String attName = p.getName();
-		if (attName == null)
+		if (attName == null || attName.isEmpty())
 			throw new AnalyzeException("Properties of the class: " + cl.getName() + " must have names!");
 		Type attType = p.getType();
 		if (attType == null)

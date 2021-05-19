@@ -42,6 +42,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		controllerOptions();
 		
 		viewsIndexOptions();
+		viewsEditOptions();
 	}
 	
 	private void domainOptions() {

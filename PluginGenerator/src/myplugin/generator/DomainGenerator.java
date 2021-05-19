@@ -36,14 +36,19 @@ public class DomainGenerator extends BasicGenerator {
 		
 			Map<String, Object> context = new HashMap<String, Object>(); 
 			context.clear();
+			Boolean needsArrayList = false;
 			ArrayList<String> imports = new ArrayList<>();
 			for (FMProperty prop : cl.getProperties()) {
 				if (prop.getType().getTypePackage().equals("Data")) {
 					imports.add(cl.getTypePackage()+"."+prop.getType().getName());
 					System.out.println(prop.getType().getTypePackage());
 				}
+				if (!needsArrayList && prop.getAssociation().contains("@OneToMany")) {
+					needsArrayList = true;
+					imports.add("java.util.ArrayList");
+				}
 			}
-			// TODO set imports
+
 			context.put("imports", imports);
 
 			try {
@@ -51,7 +56,7 @@ public class DomainGenerator extends BasicGenerator {
 				if (out != null) {
 					context.put("class", cl);
 					context.put("properties", cl.getProperties());
-					context.put("importedPackages", cl.getImportedPackages());
+//					context.put("importedPackages", cl.getImportedPackages());
 //					context.put("extendClass", cl.getBaseClassifier());
 					getTemplate().process(context, out);
 					out.flush();

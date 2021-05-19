@@ -91,7 +91,6 @@ class GenerateAction extends MDAction{
 		dtoGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
-		exportToXml();
 	}
 
 	private void generateEnumeration(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
@@ -103,7 +102,6 @@ class GenerateAction extends MDAction{
 		enumGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
-		exportToXml();
 		
 	}
 
@@ -125,7 +123,6 @@ class GenerateAction extends MDAction{
 		controllerGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
-		exportToXml();
 	}
 	
 	private void generateIndexView(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
@@ -136,7 +133,6 @@ class GenerateAction extends MDAction{
 		indexGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
-		exportToXml();
 	}
 
 	private void generateEditView(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
@@ -147,7 +143,6 @@ class GenerateAction extends MDAction{
 		editGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
-		exportToXml();
 	}
 
 	private void exportToXml() {
