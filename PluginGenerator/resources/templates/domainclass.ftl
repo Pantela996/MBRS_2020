@@ -12,21 +12,24 @@ import ${import};
 
 @Table(name="${class.name?uncap_first}")
 @Entity
-${class.visibility} class ${class.name} {  
+${class.visibility} class ${class.name} {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 
-	private Long id; 
-	
 	<#list class.properties as property>
+
 	${property.association}
-	private ${property.type.name} ${property.name?uncap_first}
+	<#if property.association?contains("@OneToMany")>
+	private ArrayList<${property.type.name}> ${property.name};
+	<#else>
+	private ${property.type.name} ${property.name};
+	</#if>
 	</#list>
 
 	public ${class.name}(){}
 
-	
 	public Long getId(){
 		return id;
 	}
@@ -35,5 +38,15 @@ ${class.visibility} class ${class.name} {
 		this.id = id;
 	}
 
+	<#list class.properties as property>
+	public ${property.type.name} get${property.type.name}() {
+		return ${property.name};
+	}
+
+	public void set${property.type.name}(${property.type.name} ${property.name}) {
+		this.${property.name} = ${property.name};
+	}
+
+	</#list>
 
 }

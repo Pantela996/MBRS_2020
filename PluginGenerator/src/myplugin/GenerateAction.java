@@ -18,39 +18,51 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
+import myplugin.generator.ControllerGenerator;
+import myplugin.generator.DTOGenerator;
 import myplugin.generator.DomainGenerator;
 import myplugin.generator.EJBGenerator;
+import myplugin.generator.EnumGenerator;
 import myplugin.generator.RepositoryGenerator;
 import myplugin.generator.ServiceGenerator;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.ProjectOptions;
+import myplugin.generator.views.IndexGenerator;
+import myplugin.generator.views.EditGenerator;
 
 /** Action that activate code generation */
 @SuppressWarnings("serial")
 class GenerateAction extends MDAction{
-	
-	
+
 	public GenerateAction(String name) {			
 		super("", name, null, null);		
 	}
 
 	public void actionPerformed(ActionEvent evt) {
-		
+
 		if (Application.getInstance().getProject() == null) return;
 		Package root = Application.getInstance().getProject().getModel();
-		
+
 		if (root == null) return;
-	
+
 //		ModelAnalyzer analyzer = new ModelAnalyzer(root, "ejb");	
-		
+
 		ModelAnalyzer analyzer = null;
 		GeneratorOptions generatorOptions = null;
 		try {
 			generateDomain(analyzer, root, generatorOptions);
-			generateRepository(analyzer, root, generatorOptions);
+			generateEnumeration(analyzer, root, generatorOptions);
+			generateDto(analyzer, root, generatorOptions);
+
+			generateController(analyzer, root, generatorOptions);
 			generateService(analyzer, root, generatorOptions);
 			generateServiceImpl(analyzer, root, generatorOptions);
+			generateRepository(analyzer, root, generatorOptions);
+
+			generateIndexView(analyzer, root, generatorOptions);
+			generateEditView(analyzer, root, generatorOptions);
+
 //			analyzer.prepareModel();	
 //			GeneratorOptions go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EJBGenerator");			
 //			EJBGenerator generator = new EJBGenerator(go);
@@ -61,26 +73,78 @@ class GenerateAction extends MDAction{
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		} 			
 	}
-	
+
 	private void generateDomain(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.domain");
 		analyzer.prepareModel();
 		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("DomainGenerator");
-		DomainGenerator ejbGenerator = new DomainGenerator(go);
-		ejbGenerator.generate();
+		DomainGenerator domainGenerator = new DomainGenerator(go);
+		domainGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
                 ", package: " + go.getFilePackage());
+	}
+
+	private void generateDto(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		// TODO Auto-generated method stub
+		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.dto");
+		analyzer.prepareModel();
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("DTOGenerator");
+		DTOGenerator dtoGenerator = new DTOGenerator(go);
+		dtoGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
+	}
+
+	private void generateEnumeration(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		// TODO Auto-generated method stub
+		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.model");
+		analyzer.prepareModel();
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EnumGenerator");
+		EnumGenerator enumGenerator = new EnumGenerator(go);
+		enumGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
 		
 	}
-	
+
 	private void generateRepository(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.repository");
 		analyzer.prepareModel();
 		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("RepositoryGenerator");
-		RepositoryGenerator ejbGenerator = new RepositoryGenerator(go);
-		ejbGenerator.generate();
+		RepositoryGenerator repositoryGenerator = new RepositoryGenerator(go);
+		repositoryGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() + 
 				", package: " + go.getFilePackage());
+	}
+	
+	private void generateController(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.controller");
+		analyzer.prepareModel();
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ControllerGenerator");
+		ControllerGenerator controllerGenerator = new ControllerGenerator(go);
+		controllerGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
+	}
+	
+	private void generateIndexView(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "resources.templates");
+		analyzer.prepareModel();
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("IndexGenerator");
+		IndexGenerator indexGenerator = new IndexGenerator(go);
+		indexGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
+	}
+
+	private void generateEditView(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "resources.templates");
+		analyzer.prepareModel();
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EditGenerator");
+		EditGenerator editGenerator = new EditGenerator(go);
+		editGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
 	}
 
 	private void generateService(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
