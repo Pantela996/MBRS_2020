@@ -14,7 +14,6 @@ public class Post {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-
 	private Long id;
 
 
@@ -30,9 +29,7 @@ public class Post {
 	@ManyToOne(fetch=FetchType.LAZY)
 	private User user;
 
-
 	public Post(){}
-
 
 	public Long getId(){
 		return id;
@@ -42,5 +39,33 @@ public class Post {
 		this.id = id;
 	}
 
+	public String getString() {
+		return description;
+	}
+	
+	public void setString(String description}) {
+		this.description = description;
+	}
+	public String getString() {
+		return content;
+	}
+	
+	public void setString(String content}) {
+		this.content = content;
+	}
+	public date getdate() {
+		return createDate;
+	}
+	
+	public void setdate(date createDate}) {
+		this.createDate = createDate;
+	}
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user}) {
+		this.user = user;
+	}
 
 }

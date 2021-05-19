@@ -16,7 +16,6 @@ public class Job {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-
 	private Long id;
 
 
@@ -24,17 +23,15 @@ public class Job {
 	private String nameOfPosition;
 
 	@OneToMany(mappedBy="job",cascade=CascadeType.REMOVE)
-	private Experience experience;
+	private ArrayList<Experience> experience;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	private JobOffer ;
+	private JobOffer jobOffer;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Company company;
 
-
 	public Job(){}
-
 
 	public Long getId(){
 		return id;
@@ -44,5 +41,33 @@ public class Job {
 		this.id = id;
 	}
 
+	public String getString() {
+		return nameOfPosition;
+	}
+	
+	public void setString(String nameOfPosition}) {
+		this.nameOfPosition = nameOfPosition;
+	}
+	public Experience getExperience() {
+		return experience;
+	}
+	
+	public void setExperience(Experience experience}) {
+		this.experience = experience;
+	}
+	public JobOffer getJobOffer() {
+		return jobOffer;
+	}
+	
+	public void setJobOffer(JobOffer jobOffer}) {
+		this.jobOffer = jobOffer;
+	}
+	public Company getCompany() {
+		return company;
+	}
+	
+	public void setCompany(Company company}) {
+		this.company = company;
+	}
 
 }

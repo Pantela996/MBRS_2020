@@ -33,7 +33,7 @@ public class UserDTO{
 		@Column(name="summary", unique=false)
 	private String summary
 		@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
-	private Post post
+	private Post posts
 		@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
 	private Connection connection
 		@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)

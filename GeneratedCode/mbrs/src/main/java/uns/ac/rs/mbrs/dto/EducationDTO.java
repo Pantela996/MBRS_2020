@@ -25,6 +25,6 @@ public class EducationDTO{
 		@ManyToOne(fetch=FetchType.LAZY)
 	private Module module
 		@ManyToOne(fetch=FetchType.LAZY)
-	private User 
+	private User user
 	s
 }

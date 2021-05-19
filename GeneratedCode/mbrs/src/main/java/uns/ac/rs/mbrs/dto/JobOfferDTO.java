@@ -21,7 +21,7 @@ public class JobOfferDTO{
 	@Column(name="expirationdate", unique=false)
 	private date expirationDate
 		@ManyToOne(fetch=FetchType.LAZY)
-	private Job 
+	private Job job
 		@OneToMany(mappedBy="joboffer",cascade=CascadeType.REMOVE)
 	private Skill skill
 	s

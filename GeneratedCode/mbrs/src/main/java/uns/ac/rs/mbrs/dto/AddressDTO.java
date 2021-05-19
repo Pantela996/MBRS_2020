@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
 import uns.ac.rs.mbrs.dto.UserDTO;
 import uns.ac.rs.mbrs.dto.CompanyDTO;
 import uns.ac.rs.mbrs.dto.EducationInsitutionDTO;
@@ -28,8 +28,8 @@ public class AddressDTO{
 		@OneToMany(mappedBy="address",cascade=CascadeType.REMOVE)
 	private User user
 		@ManyToOne(fetch=FetchType.LAZY)
-	private Company 
+	private Company company
 		@ManyToOne(fetch=FetchType.LAZY)
-	private EducationInsitution 
+	private EducationInsitution educationInstitution
 	s
 }

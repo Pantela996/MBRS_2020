@@ -24,7 +24,7 @@ public class JobDTO{
 		@OneToMany(mappedBy="job",cascade=CascadeType.REMOVE)
 	private Experience experience
 		@ManyToOne(fetch=FetchType.LAZY)
-	private JobOffer 
+	private JobOffer jobOffer
 		@ManyToOne(fetch=FetchType.LAZY)
 	private Company company
 	s

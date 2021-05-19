@@ -15,7 +15,6 @@ public class Module {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-
 	private Long id;
 
 
@@ -23,14 +22,12 @@ public class Module {
 	private String name;
 
 	@OneToMany(mappedBy="module",cascade=CascadeType.REMOVE)
-	private Education education;
+	private ArrayList<Education> education;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	private EducationInsitution educationInstituion;
 
-
 	public Module(){}
-
 
 	public Long getId(){
 		return id;
@@ -40,5 +37,26 @@ public class Module {
 		this.id = id;
 	}
 
+	public String getString() {
+		return name;
+	}
+	
+	public void setString(String name}) {
+		this.name = name;
+	}
+	public Education getEducation() {
+		return education;
+	}
+	
+	public void setEducation(Education education}) {
+		this.education = education;
+	}
+	public EducationInsitution getEducationInsitution() {
+		return educationInstituion;
+	}
+	
+	public void setEducationInsitution(EducationInsitution educationInstituion}) {
+		this.educationInstituion = educationInstituion;
+	}
 
 }

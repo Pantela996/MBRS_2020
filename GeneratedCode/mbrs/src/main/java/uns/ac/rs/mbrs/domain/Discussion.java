@@ -13,16 +13,13 @@ public class Discussion {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-
 	private Long id;
 
 
 	@Column(name="topic", unique=false)
 	private String topic;
 
-
 	public Discussion(){}
-
 
 	public Long getId(){
 		return id;
@@ -32,5 +29,12 @@ public class Discussion {
 		this.id = id;
 	}
 
+	public String getString() {
+		return topic;
+	}
+	
+	public void setString(String topic}) {
+		this.topic = topic;
+	}
 
 }

@@ -16,7 +16,6 @@ public class Address {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-
 	private Long id;
 
 
@@ -30,17 +29,15 @@ public class Address {
 	private String country;
 
 	@OneToMany(mappedBy="address",cascade=CascadeType.REMOVE)
-	private User user;
+	private ArrayList<User> user;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	private Company ;
+	private Company company;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	private EducationInsitution ;
-
+	private EducationInsitution educationInstitution;
 
 	public Address(){}
-
 
 	public Long getId(){
 		return id;
@@ -50,5 +47,47 @@ public class Address {
 		this.id = id;
 	}
 
+	public String getString() {
+		return street;
+	}
+	
+	public void setString(String street}) {
+		this.street = street;
+	}
+	public String getString() {
+		return city;
+	}
+	
+	public void setString(String city}) {
+		this.city = city;
+	}
+	public String getString() {
+		return country;
+	}
+	
+	public void setString(String country}) {
+		this.country = country;
+	}
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user}) {
+		this.user = user;
+	}
+	public Company getCompany() {
+		return company;
+	}
+	
+	public void setCompany(Company company}) {
+		this.company = company;
+	}
+	public EducationInsitution getEducationInsitution() {
+		return educationInstitution;
+	}
+	
+	public void setEducationInsitution(EducationInsitution educationInstitution}) {
+		this.educationInstitution = educationInstitution;
+	}
 
 }

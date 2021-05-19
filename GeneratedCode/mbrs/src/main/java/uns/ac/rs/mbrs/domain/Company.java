@@ -15,7 +15,6 @@ public class Company {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-
 	private Long id;
 
 
@@ -26,11 +25,9 @@ public class Company {
 	private Address address;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	private Job ;
-
+	private Job job;
 
 	public Company(){}
-
 
 	public Long getId(){
 		return id;
@@ -40,5 +37,26 @@ public class Company {
 		this.id = id;
 	}
 
+	public String getString() {
+		return name;
+	}
+	
+	public void setString(String name}) {
+		this.name = name;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	
+	public void setAddress(Address address}) {
+		this.address = address;
+	}
+	public Job getJob() {
+		return job;
+	}
+	
+	public void setJob(Job job}) {
+		this.job = job;
+	}
 
 }

@@ -23,6 +23,6 @@ public class CompanyDTO{
 		@ManyToOne(fetch=FetchType.LAZY)
 	private Address address
 		@ManyToOne(fetch=FetchType.LAZY)
-	private Job 
+	private Job job
 	s
 }

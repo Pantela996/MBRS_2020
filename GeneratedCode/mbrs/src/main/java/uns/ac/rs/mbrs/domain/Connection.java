@@ -14,7 +14,6 @@ public class Connection {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-
 	private Long id;
 
 
@@ -22,11 +21,9 @@ public class Connection {
 	private Boolean active;
 
 	@OneToMany(mappedBy="connection",cascade=CascadeType.REMOVE)
-	private User user;
-
+	private ArrayList<User> user;
 
 	public Connection(){}
-
 
 	public Long getId(){
 		return id;
@@ -36,5 +33,19 @@ public class Connection {
 		this.id = id;
 	}
 
+	public Boolean getBoolean() {
+		return active;
+	}
+	
+	public void setBoolean(Boolean active}) {
+		this.active = active;
+	}
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user}) {
+		this.user = user;
+	}
 
 }

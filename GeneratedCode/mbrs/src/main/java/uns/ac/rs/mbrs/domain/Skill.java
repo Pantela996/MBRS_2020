@@ -15,7 +15,6 @@ public class Skill {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-
 	private Long id;
 
 
@@ -23,14 +22,12 @@ public class Skill {
 	private String name;
 
 	@OneToMany(mappedBy="skill",cascade=CascadeType.REMOVE)
-	private JobOffer jobOffer;
+	private ArrayList<JobOffer> jobOffer;
 
 	@OneToMany(mappedBy="skill",cascade=CascadeType.REMOVE)
-	private User user;
-
+	private ArrayList<User> user;
 
 	public Skill(){}
-
 
 	public Long getId(){
 		return id;
@@ -40,5 +37,26 @@ public class Skill {
 		this.id = id;
 	}
 
+	public String getString() {
+		return name;
+	}
+	
+	public void setString(String name}) {
+		this.name = name;
+	}
+	public JobOffer getJobOffer() {
+		return jobOffer;
+	}
+	
+	public void setJobOffer(JobOffer jobOffer}) {
+		this.jobOffer = jobOffer;
+	}
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user}) {
+		this.user = user;
+	}
 
 }
