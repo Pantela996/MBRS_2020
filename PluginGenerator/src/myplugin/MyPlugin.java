@@ -38,8 +38,10 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		enumOptions();
 		dtoOptions();
 		
-		repositoryOptions();
 		controllerOptions();
+		serviceOptions();
+		serviceImplOptions();
+		repositoryOptions();
 		
 		viewsIndexOptions();
 		viewsEditOptions();
@@ -64,15 +66,27 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("DTOGenerator", go);
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
-	
-	
+
+
 	private void repositoryOptions() {
 		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main/java", "repositoryclass", "templates", "{0}Repository.java", true, "uns.ac.rs.mbrs.repository");
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("RepositoryGenerator", go);
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
 	
+	private void serviceOptions() {
+		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main/java", "serviceclass", "templates", "{0}Service.java", true, "uns.ac.rs.mbrs.service");
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ServiceGenerator", go);
+		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
+	}
+
 	
+	private void serviceImplOptions() {
+		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main/java", "serviceimplclass", "templates", "{0}ServiceImpl.java", true, "uns.ac.rs.mbrs.serviceImpl");
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ServiceImplGenerator", go);
+		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
+	}
+
 	private void controllerOptions() {
 		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main/java", "controllerclass", "templates", "{0}Controller.java", true, "uns.ac.rs.mbrs.controller"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ControllerGenerator", go);
@@ -90,6 +104,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("EditGenerator", go);
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
+
 
 	private NMAction[] getSubmenuActions()
 	{
