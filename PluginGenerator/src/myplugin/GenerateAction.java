@@ -25,6 +25,7 @@ import myplugin.generator.EJBGenerator;
 import myplugin.generator.EnumGenerator;
 import myplugin.generator.RepositoryGenerator;
 import myplugin.generator.ServiceGenerator;
+import myplugin.generator.ServiceImplGenerator;
 import myplugin.generator.fmmodel.FMModel;
 import myplugin.generator.options.GeneratorOptions;
 import myplugin.generator.options.ProjectOptions;
@@ -33,18 +34,20 @@ import myplugin.generator.views.EditGenerator;
 
 /** Action that activate code generation */
 @SuppressWarnings("serial")
-class GenerateAction extends MDAction{
+class GenerateAction extends MDAction {
 
-	public GenerateAction(String name) {			
-		super("", name, null, null);		
+	public GenerateAction(String name) {
+		super("", name, null, null);
 	}
 
 	public void actionPerformed(ActionEvent evt) {
 
-		if (Application.getInstance().getProject() == null) return;
+		if (Application.getInstance().getProject() == null)
+			return;
 		Package root = Application.getInstance().getProject().getModel();
 
-		if (root == null) return;
+		if (root == null)
+			return;
 
 //		ModelAnalyzer analyzer = new ModelAnalyzer(root, "ejb");	
 
@@ -67,11 +70,11 @@ class GenerateAction extends MDAction{
 //			GeneratorOptions go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EJBGenerator");			
 //			EJBGenerator generator = new EJBGenerator(go);
 //			generator.generate();
-			/**  @ToDo: Also call other generators */ 
+			/** @ToDo: Also call other generators */
 			exportToXml();
 		} catch (AnalyzeException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
-		} 			
+		}
 	}
 
 	private void generateDomain(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
@@ -80,8 +83,8 @@ class GenerateAction extends MDAction{
 		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("DomainGenerator");
 		DomainGenerator domainGenerator = new DomainGenerator(go);
 		domainGenerator.generate();
-		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() +
-                ", package: " + go.getFilePackage());
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
 	}
 
 	private void generateDto(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
@@ -95,7 +98,8 @@ class GenerateAction extends MDAction{
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
 	}
 
-	private void generateEnumeration(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+	private void generateEnumeration(ModelAnalyzer analyzer, Package root, GeneratorOptions go)
+			throws AnalyzeException {
 		// TODO Auto-generated method stub
 		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.model");
 		analyzer.prepareModel();
@@ -104,7 +108,7 @@ class GenerateAction extends MDAction{
 		enumGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
-		
+
 	}
 
 	private void generateRepository(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
@@ -113,10 +117,10 @@ class GenerateAction extends MDAction{
 		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("RepositoryGenerator");
 		RepositoryGenerator repositoryGenerator = new RepositoryGenerator(go);
 		repositoryGenerator.generate();
-		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: " + go.getOutputPath() + 
-				", package: " + go.getFilePackage());
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath() + ", package: " + go.getFilePackage());
 	}
-	
+
 	private void generateController(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.controller");
 		analyzer.prepareModel();
@@ -126,7 +130,7 @@ class GenerateAction extends MDAction{
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
 	}
-	
+
 	private void generateIndexView(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, "resources.templates");
 		analyzer.prepareModel();
@@ -158,42 +162,40 @@ class GenerateAction extends MDAction{
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
 		exportToXml();
 	}
-	
-	private void generateServiceImpl(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+
+	private void generateServiceImpl(ModelAnalyzer analyzer, Package root, GeneratorOptions go)
+			throws AnalyzeException {
 		// TODO Auto-generated method stub
 		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.serviceImpl");
 		analyzer.prepareModel();
-		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceImplementationGenerator");
-		ServiceGenerator enumGenerator = new ServiceGenerator(go);
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceImplGenerator");
+		ServiceImplGenerator enumGenerator = new ServiceImplGenerator(go);
 		enumGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
 		exportToXml();
 	}
-	
+
 	private void exportToXml() {
-		if (JOptionPane.showConfirmDialog(null, "Do you want to save FM Model?") == 
-			JOptionPane.OK_OPTION)
-		{	
+		if (JOptionPane.showConfirmDialog(null, "Do you want to save FM Model?") == JOptionPane.OK_OPTION) {
 			JFileChooser jfc = new JFileChooser();
 			if (jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
 				String fileName = jfc.getSelectedFile().getAbsolutePath();
-			
+
 				XStream xstream = new XStream(new DomDriver());
-				BufferedWriter out;		
+				BufferedWriter out;
 				try {
-					out = new BufferedWriter(new OutputStreamWriter(
-							new FileOutputStream(fileName), "UTF8"));					
+					out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "UTF8"));
 					xstream.toXML(FMModel.getInstance().getClasses(), out);
 					xstream.toXML(FMModel.getInstance().getEnumerations(), out);
-					
+
 				} catch (UnsupportedEncodingException e) {
-					JOptionPane.showMessageDialog(null, e.getMessage());				
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				} catch (FileNotFoundException e) {
-					JOptionPane.showMessageDialog(null, e.getMessage());				
-				}		             
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
 			}
-		}	
-	}	  
+		}
+	}
 
 }
