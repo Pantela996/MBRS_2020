@@ -1,15 +1,14 @@
 package uns.ac.rs.mbrs.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Date;
-import uns.ac.rs.mbrs.model.*;
-
-
-import uns.ac.rs.mbrs.model.Discussion;
-import uns.ac.rs.mbrs.service.DiscussionService;
-import uns.ac.rs.mbrs.dto.DiscussionDTO;
 
 import javax.validation.Valid;
+
+import uns.ac.rs.mbrs.domain.Discussion;
+import uns.ac.rs.mbrs.service.DiscussionService;
+import uns.ac.rs.mbrs.dto.DiscussionDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import org.modelmapper.ModelMapper;
 
@@ -30,9 +30,11 @@ public class DiscussionController {
 	@Autowired
 	private DiscussionService discussionService;
 	
-	
+	@Autowired
+	private ModelMapper modelMapper;
+
 	@RequestMapping(method = RequestMethod.GET)
-	ResponseEntity<List<DiscussionDTO>> getDiscussionList () {
+	String getDiscussionList (Model model) {
 
 		List<Discussion> discussionList = discussionService.findAll();
 		
@@ -40,12 +42,11 @@ public class DiscussionController {
 			discussionList
 			.stream()
             .map((element) -> modelMapper.map(element, DiscussionDTO.class))
-            .collect(Collectors.toList())
+            .collect(Collectors.toList());
 			
-		return new ResponseEntity<>(
-			discussionDTOList,
-			HttpStatus.OK
-		);
+		model.addAttribute("list", discussionDTOList);
+		
+		return "discussion/index";
 	}
 	
 	

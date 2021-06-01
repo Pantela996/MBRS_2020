@@ -6,6 +6,7 @@ import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
 import uns.ac.rs.mbrs.domain.User;
+import java.util.ArrayList;
 
 
 @Table(name="connection")
@@ -33,19 +34,23 @@ public class Connection {
 		this.id = id;
 	}
 
-	public Boolean getBoolean() {
+	public Boolean getActive() {
 		return active;
 	}
-	
-	public void setBoolean(Boolean active}) {
+
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
-	public User getUser() {
+
+	
+	public ArrayList<User> getUser() {
 		return user;
 	}
-	
-	public void setUser(User user}) {
+
+	public void setUser(ArrayList<User> user) {
 		this.user = user;
 	}
+
+	
 
 }

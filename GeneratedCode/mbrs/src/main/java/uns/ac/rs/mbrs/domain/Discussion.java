@@ -29,12 +29,14 @@ public class Discussion {
 		this.id = id;
 	}
 
-	public String getString() {
+	public String getTopic() {
 		return topic;
 	}
-	
-	public void setString(String topic}) {
+
+	public void setTopic(String topic) {
 		this.topic = topic;
 	}
+
+	
 
 }

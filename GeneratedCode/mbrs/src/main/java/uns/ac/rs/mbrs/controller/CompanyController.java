@@ -1,15 +1,14 @@
 package uns.ac.rs.mbrs.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Date;
-import uns.ac.rs.mbrs.model.*;
-
-
-import uns.ac.rs.mbrs.model.Company;
-import uns.ac.rs.mbrs.service.CompanyService;
-import uns.ac.rs.mbrs.dto.CompanyDTO;
 
 import javax.validation.Valid;
+
+import uns.ac.rs.mbrs.domain.Company;
+import uns.ac.rs.mbrs.service.CompanyService;
+import uns.ac.rs.mbrs.dto.CompanyDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import org.modelmapper.ModelMapper;
 
@@ -30,9 +30,11 @@ public class CompanyController {
 	@Autowired
 	private CompanyService companyService;
 	
-	
+	@Autowired
+	private ModelMapper modelMapper;
+
 	@RequestMapping(method = RequestMethod.GET)
-	ResponseEntity<List<CompanyDTO>> getCompanyList () {
+	String getCompanyList (Model model) {
 
 		List<Company> companyList = companyService.findAll();
 		
@@ -40,12 +42,11 @@ public class CompanyController {
 			companyList
 			.stream()
             .map((element) -> modelMapper.map(element, CompanyDTO.class))
-            .collect(Collectors.toList())
+            .collect(Collectors.toList());
 			
-		return new ResponseEntity<>(
-			companyDTOList,
-			HttpStatus.OK
-		);
+		model.addAttribute("list", companyDTOList);
+		
+		return "company/index";
 	}
 	
 	

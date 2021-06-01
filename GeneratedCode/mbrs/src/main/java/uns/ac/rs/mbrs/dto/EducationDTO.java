@@ -18,13 +18,5 @@ import uns.ac.rs.mbrs.dto.UserDTO;
 public class EducationDTO{
 	private Long id;
 	
-	@Column(name="startdate", unique=false)
-	private date startDate
-		@Column(name="enddate", unique=false)
-	private date endDate
-		@ManyToOne(fetch=FetchType.LAZY)
-	private Module module
-		@ManyToOne(fetch=FetchType.LAZY)
-	private User user
-	s
+
 }

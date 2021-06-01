@@ -1,15 +1,14 @@
 package uns.ac.rs.mbrs.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Date;
-import uns.ac.rs.mbrs.model.*;
-
-
-import uns.ac.rs.mbrs.model.EducationInsitution;
-import uns.ac.rs.mbrs.service.EducationInsitutionService;
-import uns.ac.rs.mbrs.dto.EducationInsitutionDTO;
 
 import javax.validation.Valid;
+
+import uns.ac.rs.mbrs.domain.EducationInsitution;
+import uns.ac.rs.mbrs.service.EducationInsitutionService;
+import uns.ac.rs.mbrs.dto.EducationInsitutionDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import org.modelmapper.ModelMapper;
 
@@ -30,9 +30,11 @@ public class EducationInsitutionController {
 	@Autowired
 	private EducationInsitutionService educationInsitutionService;
 	
-	
+	@Autowired
+	private ModelMapper modelMapper;
+
 	@RequestMapping(method = RequestMethod.GET)
-	ResponseEntity<List<EducationInsitutionDTO>> getEducationInsitutionList () {
+	String getEducationInsitutionList (Model model) {
 
 		List<EducationInsitution> educationInsitutionList = educationInsitutionService.findAll();
 		
@@ -40,12 +42,11 @@ public class EducationInsitutionController {
 			educationInsitutionList
 			.stream()
             .map((element) -> modelMapper.map(element, EducationInsitutionDTO.class))
-            .collect(Collectors.toList())
+            .collect(Collectors.toList());
 			
-		return new ResponseEntity<>(
-			educationInsitutionDTOList,
-			HttpStatus.OK
-		);
+		model.addAttribute("list", educationInsitutionDTOList);
+		
+		return "educationInsitution/index";
 	}
 	
 	

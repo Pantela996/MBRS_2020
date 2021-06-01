@@ -6,6 +6,7 @@ import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
 import uns.ac.rs.mbrs.domain.Experience;
+import java.util.ArrayList;
 import uns.ac.rs.mbrs.domain.JobOffer;
 import uns.ac.rs.mbrs.domain.Company;
 
@@ -41,33 +42,41 @@ public class Job {
 		this.id = id;
 	}
 
-	public String getString() {
+	public String getNameOfPosition() {
 		return nameOfPosition;
 	}
-	
-	public void setString(String nameOfPosition}) {
+
+	public void setNameOfPosition(String nameOfPosition) {
 		this.nameOfPosition = nameOfPosition;
 	}
-	public Experience getExperience() {
+
+	
+	public ArrayList<Experience> getExperience() {
 		return experience;
 	}
-	
-	public void setExperience(Experience experience}) {
+
+	public void setExperience(ArrayList<Experience> experience) {
 		this.experience = experience;
 	}
+
+	
 	public JobOffer getJobOffer() {
 		return jobOffer;
 	}
-	
-	public void setJobOffer(JobOffer jobOffer}) {
+
+	public void setJobOffer(JobOffer jobOffer) {
 		this.jobOffer = jobOffer;
 	}
+
+	
 	public Company getCompany() {
 		return company;
 	}
-	
-	public void setCompany(Company company}) {
+
+	public void setCompany(Company company) {
 		this.company = company;
 	}
+
+	
 
 }

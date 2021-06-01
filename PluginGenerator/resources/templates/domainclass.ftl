@@ -24,7 +24,7 @@ ${class.visibility} class ${class.name} {
 	<#if property.association?contains("@OneToMany")>
 	private ArrayList<${property.type.name}> ${property.name};
 	<#else>
-	private ${property.type.name} ${property.name};
+	private ${property.type.name?cap_first} ${property.name};
 	</#if>
 	</#list>
 
@@ -39,14 +39,27 @@ ${class.visibility} class ${class.name} {
 	}
 
 	<#list class.properties as property>
-	public ${property.type.name} get${property.type.name}() {
+	<#if property.association?contains("@OneToMany")>
+	public ArrayList<${property.type.name}> get${property.name?cap_first}() {
 		return ${property.name};
 	}
 
-	public void set${property.type.name}(${property.type.name} ${property.name}) {
+	public void set${property.name?cap_first}(ArrayList<${property.type.name}> ${property.name}) {
 		this.${property.name} = ${property.name};
 	}
 
+	
+	<#else>
+	public ${property.type.name} get${property.name?cap_first}() {
+		return ${property.name};
+	}
+
+	public void set${property.name?cap_first}(${property.type.name} ${property.name}) {
+		this.${property.name} = ${property.name};
+	}
+
+	
+	</#if>
 	</#list>
 
 }

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
 import uns.ac.rs.mbrs.domain.Post;
+import java.util.ArrayList;
 import uns.ac.rs.mbrs.domain.Connection;
 import uns.ac.rs.mbrs.domain.Experience;
 import uns.ac.rs.mbrs.domain.Address;
@@ -65,82 +66,104 @@ public class User {
 		this.id = id;
 	}
 
-	public String getString() {
+	public String getUsername() {
 		return username;
 	}
-	
-	public void setString(String username}) {
+
+	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getString() {
+
+	
+	public String getPassword() {
 		return password;
 	}
-	
-	public void setString(String password}) {
+
+	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getString() {
+
+	
+	public String getFirstName() {
 		return firstName;
 	}
-	
-	public void setString(String firstName}) {
+
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	public String getString() {
+
+	
+	public String getLastName() {
 		return lastName;
 	}
-	
-	public void setString(String lastName}) {
+
+	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getString() {
+
+	
+	public String getSummary() {
 		return summary;
 	}
-	
-	public void setString(String summary}) {
+
+	public void setSummary(String summary) {
 		this.summary = summary;
 	}
-	public Post getPost() {
+
+	
+	public ArrayList<Post> getPosts() {
 		return posts;
 	}
-	
-	public void setPost(Post posts}) {
+
+	public void setPosts(ArrayList<Post> posts) {
 		this.posts = posts;
 	}
-	public Connection getConnection() {
+
+	
+	public ArrayList<Connection> getConnection() {
 		return connection;
 	}
-	
-	public void setConnection(Connection connection}) {
+
+	public void setConnection(ArrayList<Connection> connection) {
 		this.connection = connection;
 	}
-	public Experience getExperience() {
+
+	
+	public ArrayList<Experience> getExperience() {
 		return experience;
 	}
-	
-	public void setExperience(Experience experience}) {
+
+	public void setExperience(ArrayList<Experience> experience) {
 		this.experience = experience;
 	}
-	public Address getAddress() {
+
+	
+	public ArrayList<Address> getAddress() {
 		return address;
 	}
-	
-	public void setAddress(Address address}) {
+
+	public void setAddress(ArrayList<Address> address) {
 		this.address = address;
 	}
-	public Skill getSkill() {
+
+	
+	public ArrayList<Skill> getSkills() {
 		return skills;
 	}
-	
-	public void setSkill(Skill skills}) {
+
+	public void setSkills(ArrayList<Skill> skills) {
 		this.skills = skills;
 	}
-	public Education getEducation() {
+
+	
+	public ArrayList<Education> getEducations() {
 		return educations;
 	}
-	
-	public void setEducation(Education educations}) {
+
+	public void setEducations(ArrayList<Education> educations) {
 		this.educations = educations;
 	}
+
+	
 
 }

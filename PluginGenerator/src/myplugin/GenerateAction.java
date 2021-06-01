@@ -18,11 +18,13 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import myplugin.analyzer.AnalyzeException;
 import myplugin.analyzer.ModelAnalyzer;
+import myplugin.generator.AppPropertiesGenerator;
 import myplugin.generator.ControllerGenerator;
 import myplugin.generator.DTOGenerator;
 import myplugin.generator.DomainGenerator;
 import myplugin.generator.EJBGenerator;
 import myplugin.generator.EnumGenerator;
+import myplugin.generator.PomGenerator;
 import myplugin.generator.RepositoryGenerator;
 import myplugin.generator.ServiceGenerator;
 import myplugin.generator.ServiceImplGenerator;
@@ -65,12 +67,10 @@ class GenerateAction extends MDAction {
 
 			generateIndexView(analyzer, root, generatorOptions);
 			generateEditView(analyzer, root, generatorOptions);
+			
+			generatePom(generatorOptions);
+			generateAppProperties(generatorOptions);
 
-//			analyzer.prepareModel();	
-//			GeneratorOptions go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EJBGenerator");			
-//			EJBGenerator generator = new EJBGenerator(go);
-//			generator.generate();
-			/** @ToDo: Also call other generators */
 			exportToXml();
 		} catch (AnalyzeException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
@@ -88,7 +88,6 @@ class GenerateAction extends MDAction {
 	}
 
 	private void generateDto(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
-		// TODO Auto-generated method stub
 		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.dto");
 		analyzer.prepareModel();
 		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("DTOGenerator");
@@ -98,10 +97,8 @@ class GenerateAction extends MDAction {
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
 	}
 
-	private void generateEnumeration(ModelAnalyzer analyzer, Package root, GeneratorOptions go)
-			throws AnalyzeException {
-		// TODO Auto-generated method stub
-		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.model");
+	private void generateEnumeration(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.domain");
 		analyzer.prepareModel();
 		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("EnumGenerator");
 		EnumGenerator enumGenerator = new EnumGenerator(go);
@@ -152,7 +149,6 @@ class GenerateAction extends MDAction {
 	}
 
 	private void generateService(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
-		// TODO Auto-generated method stub
 		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.service");
 		analyzer.prepareModel();
 		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceGenerator");
@@ -160,12 +156,9 @@ class GenerateAction extends MDAction {
 		enumGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
-		exportToXml();
 	}
 
-	private void generateServiceImpl(ModelAnalyzer analyzer, Package root, GeneratorOptions go)
-			throws AnalyzeException {
-		// TODO Auto-generated method stub
+	private void generateServiceImpl(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
 		analyzer = new ModelAnalyzer(root, "uns.ac.rs.mbrs.serviceImpl");
 		analyzer.prepareModel();
 		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("ServiceImplGenerator");
@@ -173,7 +166,22 @@ class GenerateAction extends MDAction {
 		enumGenerator.generate();
 		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
 				+ go.getOutputPath() + ", package: " + go.getFilePackage());
-		exportToXml();
+	}
+	
+	private void generatePom(GeneratorOptions go) {
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("PomGenerator");
+		PomGenerator pomGenerator = new PomGenerator(go);
+		pomGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath());
+	}
+	
+	private void generateAppProperties(GeneratorOptions go) {
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("AppPropertiesGenerator");
+		AppPropertiesGenerator appPropertiesGenerator = new AppPropertiesGenerator(go);
+		appPropertiesGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath());
 	}
 
 	private void exportToXml() {

@@ -1,15 +1,14 @@
 package uns.ac.rs.mbrs.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Date;
-import uns.ac.rs.mbrs.model.*;
-
-
-import uns.ac.rs.mbrs.model.Experience;
-import uns.ac.rs.mbrs.service.ExperienceService;
-import uns.ac.rs.mbrs.dto.ExperienceDTO;
 
 import javax.validation.Valid;
+
+import uns.ac.rs.mbrs.domain.Experience;
+import uns.ac.rs.mbrs.service.ExperienceService;
+import uns.ac.rs.mbrs.dto.ExperienceDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import org.modelmapper.ModelMapper;
 
@@ -30,9 +30,11 @@ public class ExperienceController {
 	@Autowired
 	private ExperienceService experienceService;
 	
-	
+	@Autowired
+	private ModelMapper modelMapper;
+
 	@RequestMapping(method = RequestMethod.GET)
-	ResponseEntity<List<ExperienceDTO>> getExperienceList () {
+	String getExperienceList (Model model) {
 
 		List<Experience> experienceList = experienceService.findAll();
 		
@@ -40,12 +42,11 @@ public class ExperienceController {
 			experienceList
 			.stream()
             .map((element) -> modelMapper.map(element, ExperienceDTO.class))
-            .collect(Collectors.toList())
+            .collect(Collectors.toList());
 			
-		return new ResponseEntity<>(
-			experienceDTOList,
-			HttpStatus.OK
-		);
+		model.addAttribute("list", experienceDTOList);
+		
+		return "experience/index";
 	}
 	
 	

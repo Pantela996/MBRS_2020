@@ -6,6 +6,7 @@ import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
 import uns.ac.rs.mbrs.domain.User;
+import java.util.ArrayList;
 import uns.ac.rs.mbrs.domain.Company;
 import uns.ac.rs.mbrs.domain.EducationInsitution;
 
@@ -47,47 +48,59 @@ public class Address {
 		this.id = id;
 	}
 
-	public String getString() {
+	public String getStreet() {
 		return street;
 	}
-	
-	public void setString(String street}) {
+
+	public void setStreet(String street) {
 		this.street = street;
 	}
-	public String getString() {
+
+	
+	public String getCity() {
 		return city;
 	}
-	
-	public void setString(String city}) {
+
+	public void setCity(String city) {
 		this.city = city;
 	}
-	public String getString() {
+
+	
+	public String getCountry() {
 		return country;
 	}
-	
-	public void setString(String country}) {
+
+	public void setCountry(String country) {
 		this.country = country;
 	}
-	public User getUser() {
+
+	
+	public ArrayList<User> getUser() {
 		return user;
 	}
-	
-	public void setUser(User user}) {
+
+	public void setUser(ArrayList<User> user) {
 		this.user = user;
 	}
+
+	
 	public Company getCompany() {
 		return company;
 	}
-	
-	public void setCompany(Company company}) {
+
+	public void setCompany(Company company) {
 		this.company = company;
 	}
-	public EducationInsitution getEducationInsitution() {
+
+	
+	public EducationInsitution getEducationInstitution() {
 		return educationInstitution;
 	}
-	
-	public void setEducationInsitution(EducationInsitution educationInstitution}) {
+
+	public void setEducationInstitution(EducationInsitution educationInstitution) {
 		this.educationInstitution = educationInstitution;
 	}
+
+	
 
 }

@@ -17,50 +17,44 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 	String pluginDir = null; 
 	
 	public void init() {
-		JOptionPane.showMessageDialog( null, "My Plugin init");
+//		JOptionPane.showMessageDialog( null, "My Plugin init");
 		
 		pluginDir = getDescriptor().getPluginDirectory().getPath();
 		
 		// Creating submenu in the MagicDraw main menu 	
 		ActionsConfiguratorsManager manager = ActionsConfiguratorsManager.getInstance();		
 		manager.addMainMenuConfigurator(new MainMenuConfigurator(getSubmenuActions()));
-		
-		/** @Todo: load project options (@see myplugin.generator.options.ProjectOptions) from 
-		 * ProjectOptions.xml and take ejb generator options */
-		
-		//for test purpose only:
-//		GeneratorOptions ejbOptions = new GeneratorOptions("c:/temp", "ejbclass", "templates", "{0}.java", true, "ejb"); 				
-//		ProjectOptions.getProjectOptions().getGeneratorOptions().put("EJBGenerator", ejbOptions);
-//				
-//		ejbOptions.setTemplateDir(pluginDir + File.separator + ejbOptions.getTemplateDir()); //apsolutna putanja
+
 
 		domainOptions();
 		enumOptions();
 		dtoOptions();
-		
+
 		controllerOptions();
 		serviceOptions();
 		serviceImplOptions();
 		repositoryOptions();
-		
+
 		viewsIndexOptions();
 		viewsEditOptions();
+
+		pomOptions();
+		appPropertiesOptions();
 	}
-	
+
 	private void domainOptions() {
 //		C:\Users\Dejan\Desktop\MBRS_20200
 		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main/java", "domainclass", "templates", "{0}.java", true, "uns.ac.rs.mbrs.domain");
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("DomainGenerator", go);
-		System.out.print(pluginDir + File.separator + go.getTemplateDir());
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
-	
+
 	private void enumOptions() {
-		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main/java", "enum", "templates", "{0}.java", true, "uns.ac.rs.mbrs.model"); 				
+		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main/java", "enum", "templates", "{0}.java", true, "uns.ac.rs.mbrs.domain"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("EnumGenerator", go);
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
-	
+
 	private void dtoOptions() {
 		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main/java", "dtoclass", "templates", "{0}DTO.java", true, "uns.ac.rs.mbrs.dto"); 				
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("DTOGenerator", go);
@@ -73,14 +67,14 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("RepositoryGenerator", go);
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
-	
+
 	private void serviceOptions() {
 		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main/java", "serviceclass", "templates", "{0}Service.java", true, "uns.ac.rs.mbrs.service");
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ServiceGenerator", go);
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
 
-	
+
 	private void serviceImplOptions() {
 		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main/java", "serviceimplclass", "templates", "{0}ServiceImpl.java", true, "uns.ac.rs.mbrs.serviceImpl");
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ServiceImplGenerator", go);
@@ -92,7 +86,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("ControllerGenerator", go);
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
-	
+
 	private void viewsIndexOptions() {
 		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main", "indexview", "templates", "{0}/index.html", true, "resources.templates");
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("IndexGenerator", go);
@@ -105,6 +99,17 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
 
+	private void pomOptions() {
+		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/pom", "pom", "templates", "pom.xml", true, "");
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("PomGenerator", go);
+		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
+	}
+
+	private void appPropertiesOptions() {
+		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main/resources", "appproperties", "templates", "application.properties", true, "");
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("AppPropertiesGenerator", go);
+		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());		
+	}
 
 	private NMAction[] getSubmenuActions()
 	{

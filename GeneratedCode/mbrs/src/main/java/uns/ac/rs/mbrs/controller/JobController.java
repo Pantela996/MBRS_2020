@@ -1,15 +1,14 @@
 package uns.ac.rs.mbrs.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Date;
-import uns.ac.rs.mbrs.model.*;
-
-
-import uns.ac.rs.mbrs.model.Job;
-import uns.ac.rs.mbrs.service.JobService;
-import uns.ac.rs.mbrs.dto.JobDTO;
 
 import javax.validation.Valid;
+
+import uns.ac.rs.mbrs.domain.Job;
+import uns.ac.rs.mbrs.service.JobService;
+import uns.ac.rs.mbrs.dto.JobDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import org.modelmapper.ModelMapper;
 
@@ -30,9 +30,11 @@ public class JobController {
 	@Autowired
 	private JobService jobService;
 	
-	
+	@Autowired
+	private ModelMapper modelMapper;
+
 	@RequestMapping(method = RequestMethod.GET)
-	ResponseEntity<List<JobDTO>> getJobList () {
+	String getJobList (Model model) {
 
 		List<Job> jobList = jobService.findAll();
 		
@@ -40,12 +42,11 @@ public class JobController {
 			jobList
 			.stream()
             .map((element) -> modelMapper.map(element, JobDTO.class))
-            .collect(Collectors.toList())
+            .collect(Collectors.toList());
 			
-		return new ResponseEntity<>(
-			jobDTOList,
-			HttpStatus.OK
-		);
+		model.addAttribute("list", jobDTOList);
+		
+		return "job/index";
 	}
 	
 	

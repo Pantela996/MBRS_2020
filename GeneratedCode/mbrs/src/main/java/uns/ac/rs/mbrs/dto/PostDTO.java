@@ -17,13 +17,7 @@ import uns.ac.rs.mbrs.dto.UserDTO;
 public class PostDTO{
 	private Long id;
 	
-	@Column(name="description", unique=false)
-	private String description
-		@Column(name="content", unique=false)
-	private String content
-		@Column(name="createdate", unique=false)
-	private date createDate
-		@ManyToOne(fetch=FetchType.LAZY)
-	private User user
-	s
+	private String description;
+	private String content;
+
 }

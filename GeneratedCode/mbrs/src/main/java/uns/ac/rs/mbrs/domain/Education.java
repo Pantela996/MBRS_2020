@@ -40,33 +40,41 @@ public class Education {
 		this.id = id;
 	}
 
-	public date getdate() {
+	public date getStartDate() {
 		return startDate;
 	}
-	
-	public void setdate(date startDate}) {
+
+	public void setStartDate(date startDate) {
 		this.startDate = startDate;
 	}
-	public date getdate() {
+
+	
+	public date getEndDate() {
 		return endDate;
 	}
-	
-	public void setdate(date endDate}) {
+
+	public void setEndDate(date endDate) {
 		this.endDate = endDate;
 	}
+
+	
 	public Module getModule() {
 		return module;
 	}
-	
-	public void setModule(Module module}) {
+
+	public void setModule(Module module) {
 		this.module = module;
 	}
+
+	
 	public User getUser() {
 		return user;
 	}
-	
-	public void setUser(User user}) {
+
+	public void setUser(User user) {
 		this.user = user;
 	}
+
+	
 
 }

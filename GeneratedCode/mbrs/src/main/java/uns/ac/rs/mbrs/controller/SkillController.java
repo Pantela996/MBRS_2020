@@ -1,15 +1,14 @@
 package uns.ac.rs.mbrs.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Date;
-import uns.ac.rs.mbrs.model.*;
-
-
-import uns.ac.rs.mbrs.model.Skill;
-import uns.ac.rs.mbrs.service.SkillService;
-import uns.ac.rs.mbrs.dto.SkillDTO;
 
 import javax.validation.Valid;
+
+import uns.ac.rs.mbrs.domain.Skill;
+import uns.ac.rs.mbrs.service.SkillService;
+import uns.ac.rs.mbrs.dto.SkillDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import org.modelmapper.ModelMapper;
 
@@ -30,9 +30,11 @@ public class SkillController {
 	@Autowired
 	private SkillService skillService;
 	
-	
+	@Autowired
+	private ModelMapper modelMapper;
+
 	@RequestMapping(method = RequestMethod.GET)
-	ResponseEntity<List<SkillDTO>> getSkillList () {
+	String getSkillList (Model model) {
 
 		List<Skill> skillList = skillService.findAll();
 		
@@ -40,12 +42,11 @@ public class SkillController {
 			skillList
 			.stream()
             .map((element) -> modelMapper.map(element, SkillDTO.class))
-            .collect(Collectors.toList())
+            .collect(Collectors.toList());
 			
-		return new ResponseEntity<>(
-			skillDTOList,
-			HttpStatus.OK
-		);
+		model.addAttribute("list", skillDTOList);
+		
+		return "skill/index";
 	}
 	
 	

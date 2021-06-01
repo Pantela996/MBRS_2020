@@ -19,13 +19,6 @@ import uns.ac.rs.mbrs.dto.CompanyDTO;
 public class JobDTO{
 	private Long id;
 	
-	@Column(name="nameofposition", unique=false)
-	private String nameOfPosition
-		@OneToMany(mappedBy="job",cascade=CascadeType.REMOVE)
-	private Experience experience
-		@ManyToOne(fetch=FetchType.LAZY)
-	private JobOffer jobOffer
-		@ManyToOne(fetch=FetchType.LAZY)
-	private Company company
-	s
+	private String nameOfPosition;
+
 }

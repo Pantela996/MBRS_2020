@@ -18,11 +18,6 @@ import uns.ac.rs.mbrs.dto.UserDTO;
 public class SkillDTO{
 	private Long id;
 	
-	@Column(name="name", unique=false)
-	private String name
-		@OneToMany(mappedBy="skill",cascade=CascadeType.REMOVE)
-	private JobOffer jobOffer
-		@OneToMany(mappedBy="skill",cascade=CascadeType.REMOVE)
-	private User user
-	s
+	private String name;
+
 }

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
 import uns.ac.rs.mbrs.domain.Education;
+import java.util.ArrayList;
 import uns.ac.rs.mbrs.domain.EducationInsitution;
 
 
@@ -37,26 +38,32 @@ public class Module {
 		this.id = id;
 	}
 
-	public String getString() {
+	public String getName() {
 		return name;
 	}
-	
-	public void setString(String name}) {
+
+	public void setName(String name) {
 		this.name = name;
 	}
-	public Education getEducation() {
+
+	
+	public ArrayList<Education> getEducation() {
 		return education;
 	}
-	
-	public void setEducation(Education education}) {
+
+	public void setEducation(ArrayList<Education> education) {
 		this.education = education;
 	}
-	public EducationInsitution getEducationInsitution() {
+
+	
+	public EducationInsitution getEducationInstituion() {
 		return educationInstituion;
 	}
-	
-	public void setEducationInsitution(EducationInsitution educationInstituion}) {
+
+	public void setEducationInstituion(EducationInsitution educationInstituion) {
 		this.educationInstituion = educationInstituion;
 	}
+
+	
 
 }

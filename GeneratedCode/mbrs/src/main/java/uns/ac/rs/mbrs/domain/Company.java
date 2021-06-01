@@ -37,26 +37,32 @@ public class Company {
 		this.id = id;
 	}
 
-	public String getString() {
+	public String getName() {
 		return name;
 	}
-	
-	public void setString(String name}) {
+
+	public void setName(String name) {
 		this.name = name;
 	}
+
+	
 	public Address getAddress() {
 		return address;
 	}
-	
-	public void setAddress(Address address}) {
+
+	public void setAddress(Address address) {
 		this.address = address;
 	}
+
+	
 	public Job getJob() {
 		return job;
 	}
-	
-	public void setJob(Job job}) {
+
+	public void setJob(Job job) {
 		this.job = job;
 	}
+
+	
 
 }

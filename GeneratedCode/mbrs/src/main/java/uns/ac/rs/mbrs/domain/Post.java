@@ -39,33 +39,41 @@ public class Post {
 		this.id = id;
 	}
 
-	public String getString() {
+	public String getDescription() {
 		return description;
 	}
-	
-	public void setString(String description}) {
+
+	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getString() {
+
+	
+	public String getContent() {
 		return content;
 	}
-	
-	public void setString(String content}) {
+
+	public void setContent(String content) {
 		this.content = content;
 	}
-	public date getdate() {
+
+	
+	public date getCreateDate() {
 		return createDate;
 	}
-	
-	public void setdate(date createDate}) {
+
+	public void setCreateDate(date createDate) {
 		this.createDate = createDate;
 	}
+
+	
 	public User getUser() {
 		return user;
 	}
-	
-	public void setUser(User user}) {
+
+	public void setUser(User user) {
 		this.user = user;
 	}
+
+	
 
 }

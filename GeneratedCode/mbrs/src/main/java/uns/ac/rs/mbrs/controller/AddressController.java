@@ -1,15 +1,14 @@
 package uns.ac.rs.mbrs.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Date;
-import uns.ac.rs.mbrs.model.*;
-
-
-import uns.ac.rs.mbrs.model.Address;
-import uns.ac.rs.mbrs.service.AddressService;
-import uns.ac.rs.mbrs.dto.AddressDTO;
 
 import javax.validation.Valid;
+
+import uns.ac.rs.mbrs.domain.Address;
+import uns.ac.rs.mbrs.service.AddressService;
+import uns.ac.rs.mbrs.dto.AddressDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import org.modelmapper.ModelMapper;
 
@@ -30,9 +30,11 @@ public class AddressController {
 	@Autowired
 	private AddressService addressService;
 	
-	
+	@Autowired
+	private ModelMapper modelMapper;
+
 	@RequestMapping(method = RequestMethod.GET)
-	ResponseEntity<List<AddressDTO>> getAddressList () {
+	String getAddressList (Model model) {
 
 		List<Address> addressList = addressService.findAll();
 		
@@ -40,12 +42,11 @@ public class AddressController {
 			addressList
 			.stream()
             .map((element) -> modelMapper.map(element, AddressDTO.class))
-            .collect(Collectors.toList())
+            .collect(Collectors.toList());
 			
-		return new ResponseEntity<>(
-			addressDTOList,
-			HttpStatus.OK
-		);
+		model.addAttribute("list", addressDTOList);
+		
+		return "address/index";
 	}
 	
 	

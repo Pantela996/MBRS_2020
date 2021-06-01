@@ -6,6 +6,7 @@ import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
 import uns.ac.rs.mbrs.domain.JobOffer;
+import java.util.ArrayList;
 import uns.ac.rs.mbrs.domain.User;
 
 
@@ -37,26 +38,32 @@ public class Skill {
 		this.id = id;
 	}
 
-	public String getString() {
+	public String getName() {
 		return name;
 	}
-	
-	public void setString(String name}) {
+
+	public void setName(String name) {
 		this.name = name;
 	}
-	public JobOffer getJobOffer() {
+
+	
+	public ArrayList<JobOffer> getJobOffer() {
 		return jobOffer;
 	}
-	
-	public void setJobOffer(JobOffer jobOffer}) {
+
+	public void setJobOffer(ArrayList<JobOffer> jobOffer) {
 		this.jobOffer = jobOffer;
 	}
-	public User getUser() {
+
+	
+	public ArrayList<User> getUser() {
 		return user;
 	}
-	
-	public void setUser(User user}) {
+
+	public void setUser(ArrayList<User> user) {
 		this.user = user;
 	}
+
+	
 
 }

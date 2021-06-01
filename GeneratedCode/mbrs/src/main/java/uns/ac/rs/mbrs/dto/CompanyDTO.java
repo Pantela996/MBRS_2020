@@ -18,11 +18,6 @@ import uns.ac.rs.mbrs.dto.JobDTO;
 public class CompanyDTO{
 	private Long id;
 	
-	@Column(name="name", unique=false)
-	private String name
-		@ManyToOne(fetch=FetchType.LAZY)
-	private Address address
-		@ManyToOne(fetch=FetchType.LAZY)
-	private Job job
-	s
+	private String name;
+
 }

@@ -18,11 +18,6 @@ import uns.ac.rs.mbrs.dto.AddressDTO;
 public class EducationInsitutionDTO{
 	private Long id;
 	
-	@Column(name="name", unique=false)
-	private String name
-		@OneToMany(mappedBy="educationinsitution",cascade=CascadeType.REMOVE)
-	private Module module
-		@ManyToOne(fetch=FetchType.LAZY)
-	private Address address
-	s
+	private String name;
+
 }

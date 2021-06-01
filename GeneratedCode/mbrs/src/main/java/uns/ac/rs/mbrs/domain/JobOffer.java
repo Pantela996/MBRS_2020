@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
 import uns.ac.rs.mbrs.domain.Job;
 import uns.ac.rs.mbrs.domain.Skill;
+import java.util.ArrayList;
 
 
 @Table(name="jobOffer")
@@ -37,26 +38,32 @@ public class JobOffer {
 		this.id = id;
 	}
 
-	public date getdate() {
+	public date getExpirationDate() {
 		return expirationDate;
 	}
-	
-	public void setdate(date expirationDate}) {
+
+	public void setExpirationDate(date expirationDate) {
 		this.expirationDate = expirationDate;
 	}
+
+	
 	public Job getJob() {
 		return job;
 	}
-	
-	public void setJob(Job job}) {
+
+	public void setJob(Job job) {
 		this.job = job;
 	}
-	public Skill getSkill() {
+
+	
+	public ArrayList<Skill> getSkill() {
 		return skill;
 	}
-	
-	public void setSkill(Skill skill}) {
+
+	public void setSkill(ArrayList<Skill> skill) {
 		this.skill = skill;
 	}
+
+	
 
 }

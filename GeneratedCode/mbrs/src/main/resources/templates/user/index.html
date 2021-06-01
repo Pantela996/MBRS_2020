@@ -1,10 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
-    <title>Index User</title> 
+    <title>Index User</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script>
 </head>
 <body>
-    <p>Index User!</>
+    <p>Index User!</p>
+    <div id="content">
+    <tbody>
+	    <tr th:each="listElement: ${list}">
+	       	<td th:text="${listElement.username}" />
+	       	<td th:text="${listElement.password}" />
+	       	<td th:text="${listElement.firstName}" />
+	       	<td th:text="${listElement.lastName}" />
+	       	<td th:text="${listElement.summary}" />
+	    </tr>
+    </tbody>
+    </div>
 </body>
-</html>
+
+</html> 

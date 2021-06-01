@@ -1,15 +1,14 @@
 package uns.ac.rs.mbrs.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Date;
-import uns.ac.rs.mbrs.model.*;
-
-
-import uns.ac.rs.mbrs.model.Post;
-import uns.ac.rs.mbrs.service.PostService;
-import uns.ac.rs.mbrs.dto.PostDTO;
 
 import javax.validation.Valid;
+
+import uns.ac.rs.mbrs.domain.Post;
+import uns.ac.rs.mbrs.service.PostService;
+import uns.ac.rs.mbrs.dto.PostDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import org.modelmapper.ModelMapper;
 
@@ -30,9 +30,11 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 	
-	
+	@Autowired
+	private ModelMapper modelMapper;
+
 	@RequestMapping(method = RequestMethod.GET)
-	ResponseEntity<List<PostDTO>> getPostList () {
+	String getPostList (Model model) {
 
 		List<Post> postList = postService.findAll();
 		
@@ -40,12 +42,11 @@ public class PostController {
 			postList
 			.stream()
             .map((element) -> modelMapper.map(element, PostDTO.class))
-            .collect(Collectors.toList())
+            .collect(Collectors.toList());
 			
-		return new ResponseEntity<>(
-			postDTOList,
-			HttpStatus.OK
-		);
+		model.addAttribute("list", postDTOList);
+		
+		return "post/index";
 	}
 	
 	

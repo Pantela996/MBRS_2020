@@ -18,11 +18,5 @@ import uns.ac.rs.mbrs.dto.SkillDTO;
 public class JobOfferDTO{
 	private Long id;
 	
-	@Column(name="expirationdate", unique=false)
-	private date expirationDate
-		@ManyToOne(fetch=FetchType.LAZY)
-	private Job job
-		@OneToMany(mappedBy="joboffer",cascade=CascadeType.REMOVE)
-	private Skill skill
-	s
+
 }

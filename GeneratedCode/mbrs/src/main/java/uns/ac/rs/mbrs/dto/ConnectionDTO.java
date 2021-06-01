@@ -17,9 +17,6 @@ import uns.ac.rs.mbrs.dto.UserDTO;
 public class ConnectionDTO{
 	private Long id;
 	
-	@Column(name="active", unique=false)
-	private Boolean active
-		@OneToMany(mappedBy="connection",cascade=CascadeType.REMOVE)
-	private User user
-	s
+	private Boolean active;
+
 }

@@ -1,10 +1,9 @@
 package ${class.typePackage};
 
-import import uns.ac.rs.mbrs.model.${class.name};
+import uns.ac.rs.mbrs.domain.${class.name};
 
 import java.util.List;
 import java.util.Date;
-import uns.ac.rs.mbrs.model.*;
 
 public interface ${class.name}Service{
 

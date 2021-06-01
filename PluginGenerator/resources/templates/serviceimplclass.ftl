@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import uns.ac.rs.mbrs.model.${class.name};
+import uns.ac.rs.mbrs.domain.${class.name};
 import uns.ac.rs.mbrs.repository.${class.name}Repository;
 import uns.ac.rs.mbrs.service.${class.name}Service;
-import uns.ac.rs.mbrs.model.*;
 
 import java.util.Date;
 

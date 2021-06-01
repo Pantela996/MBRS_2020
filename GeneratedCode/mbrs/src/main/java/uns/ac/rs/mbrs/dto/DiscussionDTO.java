@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class DiscussionDTO{
 	private Long id;
 	
-	@Column(name="topic", unique=false)
-	private String topic
-	s
+	private String topic;
+
 }

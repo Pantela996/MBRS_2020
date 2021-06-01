@@ -20,7 +20,9 @@ ${class.visibility} class ${class.name}DTO{
 	private Long id;
 	
 	<#list class.properties as property>
-	${property.association}
-	private ${property.type.name} ${property.name?uncap_first}
-	</#list>s
+	<#if property.type.typePackage?contains("Primitive")>
+	private ${property.type.name} ${property.name?uncap_first};
+	</#if>
+	</#list>
+
 }

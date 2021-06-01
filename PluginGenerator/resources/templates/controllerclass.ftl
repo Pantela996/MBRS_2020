@@ -1,15 +1,14 @@
 package ${class.typePackage};
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Date;
-import uns.ac.rs.mbrs.model.*;
-
-
-import uns.ac.rs.mbrs.model.${class.name};
-import uns.ac.rs.mbrs.service.${class.name}Service;
-import uns.ac.rs.mbrs.dto.${class.name}DTO;
 
 import javax.validation.Valid;
+
+import uns.ac.rs.mbrs.domain.${class.name};
+import uns.ac.rs.mbrs.service.${class.name}Service;
+import uns.ac.rs.mbrs.dto.${class.name}DTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import org.modelmapper.ModelMapper;
 
@@ -30,9 +30,11 @@ ${class.visibility} class ${class.name}Controller {
 	@Autowired
 	private ${class.name}Service ${class.name?uncap_first}Service;
 	
-	
+	@Autowired
+	private ModelMapper modelMapper;
+
 	@RequestMapping(method = RequestMethod.GET)
-	ResponseEntity<List<${class.name}DTO>> get${class.name}List () {
+	String get${class.name}List (Model model) {
 
 		List<${class.name}> ${class.name?uncap_first}List = ${class.name?uncap_first}Service.findAll();
 		
@@ -40,12 +42,11 @@ ${class.visibility} class ${class.name}Controller {
 			${class.name?uncap_first}List
 			.stream()
             .map((element) -> modelMapper.map(element, ${class.name}DTO.class))
-            .collect(Collectors.toList())
+            .collect(Collectors.toList());
 			
-		return new ResponseEntity<>(
-			${class.name?uncap_first}DTOList,
-			HttpStatus.OK
-		);
+		model.addAttribute("list", ${class.name?uncap_first}DTOList);
+		
+		return "${class.name?uncap_first}/index";
 	}
 	
 	
