@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
+import uns.ac.rs.mbrs.dto.ExperienceDTO;
 import uns.ac.rs.mbrs.domain.User;
 import uns.ac.rs.mbrs.domain.Job;
 
@@ -19,10 +20,10 @@ public class Experience {
 
 
 	@Column(name="startdate", unique=false)
-	private date startDate;
+	private Date startDate;
 
 	@Column(name="enddate", unique=false)
-	private date endDate;
+	private Date endDate;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	private User user;
@@ -31,6 +32,9 @@ public class Experience {
 	private Job job;
 
 	public Experience(){}
+	
+	public Experience(ExperienceDTO experienceDTO){
+	}
 
 	public Long getId(){
 		return id;
@@ -40,20 +44,20 @@ public class Experience {
 		this.id = id;
 	}
 
-	public date getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(date startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
 	
-	public date getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(date endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 

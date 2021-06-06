@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
+import uns.ac.rs.mbrs.dto.DiscussionDTO;
 
 
 @Table(name="discussion")
@@ -20,6 +21,10 @@ public class Discussion {
 	private String topic;
 
 	public Discussion(){}
+	
+	public Discussion(DiscussionDTO discussionDTO){
+		this.topic = discussionDTO.getTopic();
+	}
 
 	public Long getId(){
 		return id;

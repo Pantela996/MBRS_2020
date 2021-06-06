@@ -19,5 +19,32 @@ public class ModuleDTO{
 	private Long id;
 	
 	private String name;
+	private ArrayList<EducationDTO> education;
+	private EducationInsitutionDTO educationInstituion;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public ArrayList<EducationDTO> getEducation() {
+		return education;
+	}
+
+	public void setEducation(ArrayList<EducationDTO> education) {
+		this.education = education;
+	}
+	
+	public EducationInsitutionDTO getEducationInstituion() {
+		return educationInstituion;
+	}
+
+	public void setEducationInstituion(EducationInsitutionDTO educationInstituion) {
+		this.educationInstituion = educationInstituion;
+	}
+
 
 }

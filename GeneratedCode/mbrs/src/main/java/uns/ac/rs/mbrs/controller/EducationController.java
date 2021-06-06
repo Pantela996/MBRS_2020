@@ -67,7 +67,8 @@ public class EducationController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<EducationDTO> add(@RequestBody @Valid EducationDTO newEducation) {
 
-		Education savedEducation = educationService.save(toEducation.convert(newEducation));
+		Education education = new Education(newEducation);
+		Education savedEducation = educationService.save(education);
 
 		return new ResponseEntity<>(
 			modelMapper.map(savedEducation, EducationDTO.class),
@@ -78,11 +79,14 @@ public class EducationController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
 	public ResponseEntity<EducationDTO> edit(@RequestBody @Valid EducationDTO education, @PathVariable Long id) {
 
-		if (id != education.getId()) {
+		Education foundEducation = educationService.findOne(id);
+		
+		if (foundEducation == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		Education persisted = educationService.save(toEducation.convert(education));
+
+		Education persisted = educationService.save(foundEducation);
 
 		return new ResponseEntity<>(
 			modelMapper.map(persisted, EducationDTO.class),

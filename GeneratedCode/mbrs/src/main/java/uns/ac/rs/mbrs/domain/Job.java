@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
+import uns.ac.rs.mbrs.dto.JobDTO;
 import uns.ac.rs.mbrs.domain.Experience;
 import java.util.ArrayList;
 import uns.ac.rs.mbrs.domain.JobOffer;
@@ -33,6 +34,10 @@ public class Job {
 	private Company company;
 
 	public Job(){}
+	
+	public Job(JobDTO jobDTO){
+		this.nameOfPosition = jobDTO.getNameOfPosition();
+	}
 
 	public Long getId(){
 		return id;

@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
+import uns.ac.rs.mbrs.dto.ConnectionDTO;
 import uns.ac.rs.mbrs.domain.User;
 import java.util.ArrayList;
 
@@ -25,6 +26,10 @@ public class Connection {
 	private ArrayList<User> user;
 
 	public Connection(){}
+	
+	public Connection(ConnectionDTO connectionDTO){
+		this.active = connectionDTO.getActive();
+	}
 
 	public Long getId(){
 		return id;

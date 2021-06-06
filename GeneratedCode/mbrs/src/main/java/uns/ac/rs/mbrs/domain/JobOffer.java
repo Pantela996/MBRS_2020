@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
+import uns.ac.rs.mbrs.dto.JobOfferDTO;
 import uns.ac.rs.mbrs.domain.Job;
 import uns.ac.rs.mbrs.domain.Skill;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class JobOffer {
 
 
 	@Column(name="expirationdate", unique=false)
-	private date expirationDate;
+	private Date expirationDate;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Job job;
@@ -29,6 +30,9 @@ public class JobOffer {
 	private ArrayList<Skill> skill;
 
 	public JobOffer(){}
+	
+	public JobOffer(JobOfferDTO jobOfferDTO){
+	}
 
 	public Long getId(){
 		return id;
@@ -38,11 +42,11 @@ public class JobOffer {
 		this.id = id;
 	}
 
-	public date getExpirationDate() {
+	public Date getExpirationDate() {
 		return expirationDate;
 	}
 
-	public void setExpirationDate(date expirationDate) {
+	public void setExpirationDate(Date expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 

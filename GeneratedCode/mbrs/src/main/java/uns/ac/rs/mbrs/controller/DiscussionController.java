@@ -67,7 +67,8 @@ public class DiscussionController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<DiscussionDTO> add(@RequestBody @Valid DiscussionDTO newDiscussion) {
 
-		Discussion savedDiscussion = discussionService.save(toDiscussion.convert(newDiscussion));
+		Discussion discussion = new Discussion(newDiscussion);
+		Discussion savedDiscussion = discussionService.save(discussion);
 
 		return new ResponseEntity<>(
 			modelMapper.map(savedDiscussion, DiscussionDTO.class),
@@ -78,11 +79,15 @@ public class DiscussionController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
 	public ResponseEntity<DiscussionDTO> edit(@RequestBody @Valid DiscussionDTO discussion, @PathVariable Long id) {
 
-		if (id != discussion.getId()) {
+		Discussion foundDiscussion = discussionService.findOne(id);
+		
+		if (foundDiscussion == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		Discussion persisted = discussionService.save(toDiscussion.convert(discussion));
+		foundDiscussion.setTopic(discussion.getTopic());
+
+		Discussion persisted = discussionService.save(foundDiscussion);
 
 		return new ResponseEntity<>(
 			modelMapper.map(persisted, DiscussionDTO.class),

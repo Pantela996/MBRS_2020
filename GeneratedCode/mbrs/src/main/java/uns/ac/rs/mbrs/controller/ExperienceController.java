@@ -67,7 +67,8 @@ public class ExperienceController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<ExperienceDTO> add(@RequestBody @Valid ExperienceDTO newExperience) {
 
-		Experience savedExperience = experienceService.save(toExperience.convert(newExperience));
+		Experience experience = new Experience(newExperience);
+		Experience savedExperience = experienceService.save(experience);
 
 		return new ResponseEntity<>(
 			modelMapper.map(savedExperience, ExperienceDTO.class),
@@ -78,11 +79,14 @@ public class ExperienceController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
 	public ResponseEntity<ExperienceDTO> edit(@RequestBody @Valid ExperienceDTO experience, @PathVariable Long id) {
 
-		if (id != experience.getId()) {
+		Experience foundExperience = experienceService.findOne(id);
+		
+		if (foundExperience == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		Experience persisted = experienceService.save(toExperience.convert(experience));
+
+		Experience persisted = experienceService.save(foundExperience);
 
 		return new ResponseEntity<>(
 			modelMapper.map(persisted, ExperienceDTO.class),

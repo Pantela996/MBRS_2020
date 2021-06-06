@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
+import uns.ac.rs.mbrs.dto.UserDTO;
 import uns.ac.rs.mbrs.domain.Post;
 import java.util.ArrayList;
 import uns.ac.rs.mbrs.domain.Connection;
@@ -57,6 +58,14 @@ public class User {
 	private ArrayList<Education> educations;
 
 	public User(){}
+	
+	public User(UserDTO userDTO){
+		this.username = userDTO.getUsername();
+		this.password = userDTO.getPassword();
+		this.firstName = userDTO.getFirstName();
+		this.lastName = userDTO.getLastName();
+		this.summary = userDTO.getSummary();
+	}
 
 	public Long getId(){
 		return id;

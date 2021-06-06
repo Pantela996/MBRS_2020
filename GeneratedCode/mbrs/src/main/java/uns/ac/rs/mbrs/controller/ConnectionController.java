@@ -67,7 +67,8 @@ public class ConnectionController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<ConnectionDTO> add(@RequestBody @Valid ConnectionDTO newConnection) {
 
-		Connection savedConnection = connectionService.save(toConnection.convert(newConnection));
+		Connection connection = new Connection(newConnection);
+		Connection savedConnection = connectionService.save(connection);
 
 		return new ResponseEntity<>(
 			modelMapper.map(savedConnection, ConnectionDTO.class),
@@ -78,11 +79,15 @@ public class ConnectionController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
 	public ResponseEntity<ConnectionDTO> edit(@RequestBody @Valid ConnectionDTO connection, @PathVariable Long id) {
 
-		if (id != connection.getId()) {
+		Connection foundConnection = connectionService.findOne(id);
+		
+		if (foundConnection == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		Connection persisted = connectionService.save(toConnection.convert(connection));
+		foundConnection.setActive(connection.getActive());
+
+		Connection persisted = connectionService.save(foundConnection);
 
 		return new ResponseEntity<>(
 			modelMapper.map(persisted, ConnectionDTO.class),

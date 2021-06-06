@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
+import uns.ac.rs.mbrs.dto.${class.name}DTO;
 <#list imports as import>
 import ${import};
 </#list>
@@ -29,6 +30,14 @@ ${class.visibility} class ${class.name} {
 	</#list>
 
 	public ${class.name}(){}
+	
+	public ${class.name}(${class.name}DTO ${class.name?uncap_first}DTO){
+		<#list class.properties as property>
+		<#if property.type.typePackage?contains("Primitive")>
+		this.${property.name} = ${class.name?uncap_first}DTO.get${property.name?cap_first}();
+		</#if>
+		</#list>
+	}
 
 	public Long getId(){
 		return id;
@@ -40,21 +49,21 @@ ${class.visibility} class ${class.name} {
 
 	<#list class.properties as property>
 	<#if property.association?contains("@OneToMany")>
-	public ArrayList<${property.type.name}> get${property.name?cap_first}() {
+	public ArrayList<${property.type.name?cap_first}> get${property.name?cap_first}() {
 		return ${property.name};
 	}
 
-	public void set${property.name?cap_first}(ArrayList<${property.type.name}> ${property.name}) {
+	public void set${property.name?cap_first}(ArrayList<${property.type.name?cap_first}> ${property.name}) {
 		this.${property.name} = ${property.name};
 	}
 
 	
 	<#else>
-	public ${property.type.name} get${property.name?cap_first}() {
+	public ${property.type.name?cap_first} get${property.name?cap_first}() {
 		return ${property.name};
 	}
 
-	public void set${property.name?cap_first}(${property.type.name} ${property.name}) {
+	public void set${property.name?cap_first}(${property.type.name?cap_first} ${property.name}) {
 		this.${property.name} = ${property.name};
 	}
 

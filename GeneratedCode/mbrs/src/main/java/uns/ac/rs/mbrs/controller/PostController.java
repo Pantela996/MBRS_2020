@@ -67,7 +67,8 @@ public class PostController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<PostDTO> add(@RequestBody @Valid PostDTO newPost) {
 
-		Post savedPost = postService.save(toPost.convert(newPost));
+		Post post = new Post(newPost);
+		Post savedPost = postService.save(post);
 
 		return new ResponseEntity<>(
 			modelMapper.map(savedPost, PostDTO.class),
@@ -78,11 +79,16 @@ public class PostController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
 	public ResponseEntity<PostDTO> edit(@RequestBody @Valid PostDTO post, @PathVariable Long id) {
 
-		if (id != post.getId()) {
+		Post foundPost = postService.findOne(id);
+		
+		if (foundPost == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		Post persisted = postService.save(toPost.convert(post));
+		foundPost.setDescription(post.getDescription());
+		foundPost.setContent(post.getContent());
+
+		Post persisted = postService.save(foundPost);
 
 		return new ResponseEntity<>(
 			modelMapper.map(persisted, PostDTO.class),

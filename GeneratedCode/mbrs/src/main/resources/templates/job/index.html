@@ -8,11 +8,13 @@
 <body>
     <p>Index Job!</p>
     <div id="content">
-    <tbody>
-	    <tr th:each="listElement: ${list}">
-	       	<td th:text="${listElement.nameOfPosition}" />
-	    </tr>
-    </tbody>
+    <table>
+        <tbody>
+		    <tr th:each="listElement: ${list}">
+		       	<td th:text="${listElement.nameOfPosition}" />
+		    </tr>
+	    </tbody>
+	</table>
     </div>
 </body>
 

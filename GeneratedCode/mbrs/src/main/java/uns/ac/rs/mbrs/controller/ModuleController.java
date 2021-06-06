@@ -67,7 +67,8 @@ public class ModuleController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<ModuleDTO> add(@RequestBody @Valid ModuleDTO newModule) {
 
-		Module savedModule = moduleService.save(toModule.convert(newModule));
+		Module module = new Module(newModule);
+		Module savedModule = moduleService.save(module);
 
 		return new ResponseEntity<>(
 			modelMapper.map(savedModule, ModuleDTO.class),
@@ -78,11 +79,15 @@ public class ModuleController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
 	public ResponseEntity<ModuleDTO> edit(@RequestBody @Valid ModuleDTO module, @PathVariable Long id) {
 
-		if (id != module.getId()) {
+		Module foundModule = moduleService.findOne(id);
+		
+		if (foundModule == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		Module persisted = moduleService.save(toModule.convert(module));
+		foundModule.setName(module.getName());
+
+		Module persisted = moduleService.save(foundModule);
 
 		return new ResponseEntity<>(
 			modelMapper.map(persisted, ModuleDTO.class),

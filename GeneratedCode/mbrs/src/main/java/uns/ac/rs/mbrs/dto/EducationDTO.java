@@ -18,5 +18,42 @@ import uns.ac.rs.mbrs.dto.UserDTO;
 public class EducationDTO{
 	private Long id;
 	
+	private Date startDate;
+	private Date endDate;
+	private ModuleDTO module;
+	private UserDTO user;
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public ModuleDTO getModule() {
+		return module;
+	}
+
+	public void setModule(ModuleDTO module) {
+		this.module = module;
+	}
+
+	public UserDTO getUser() {
+		return user;
+	}
+
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
+
 
 }

@@ -67,7 +67,8 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<UserDTO> add(@RequestBody @Valid UserDTO newUser) {
 
-		User savedUser = userService.save(toUser.convert(newUser));
+		User user = new User(newUser);
+		User savedUser = userService.save(user);
 
 		return new ResponseEntity<>(
 			modelMapper.map(savedUser, UserDTO.class),
@@ -78,11 +79,19 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
 	public ResponseEntity<UserDTO> edit(@RequestBody @Valid UserDTO user, @PathVariable Long id) {
 
-		if (id != user.getId()) {
+		User foundUser = userService.findOne(id);
+		
+		if (foundUser == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		User persisted = userService.save(toUser.convert(user));
+		foundUser.setUsername(user.getUsername());
+		foundUser.setPassword(user.getPassword());
+		foundUser.setFirstName(user.getFirstName());
+		foundUser.setLastName(user.getLastName());
+		foundUser.setSummary(user.getSummary());
+
+		User persisted = userService.save(foundUser);
 
 		return new ResponseEntity<>(
 			modelMapper.map(persisted, UserDTO.class),

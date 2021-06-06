@@ -67,7 +67,8 @@ public class CompanyController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<CompanyDTO> add(@RequestBody @Valid CompanyDTO newCompany) {
 
-		Company savedCompany = companyService.save(toCompany.convert(newCompany));
+		Company company = new Company(newCompany);
+		Company savedCompany = companyService.save(company);
 
 		return new ResponseEntity<>(
 			modelMapper.map(savedCompany, CompanyDTO.class),
@@ -78,11 +79,15 @@ public class CompanyController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
 	public ResponseEntity<CompanyDTO> edit(@RequestBody @Valid CompanyDTO company, @PathVariable Long id) {
 
-		if (id != company.getId()) {
+		Company foundCompany = companyService.findOne(id);
+		
+		if (foundCompany == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		Company persisted = companyService.save(toCompany.convert(company));
+		foundCompany.setName(company.getName());
+
+		Company persisted = companyService.save(foundCompany);
 
 		return new ResponseEntity<>(
 			modelMapper.map(persisted, CompanyDTO.class),

@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
+import uns.ac.rs.mbrs.dto.ModuleDTO;
 import uns.ac.rs.mbrs.domain.Education;
 import java.util.ArrayList;
 import uns.ac.rs.mbrs.domain.EducationInsitution;
@@ -29,6 +30,10 @@ public class Module {
 	private EducationInsitution educationInstituion;
 
 	public Module(){}
+	
+	public Module(ModuleDTO moduleDTO){
+		this.name = moduleDTO.getName();
+	}
 
 	public Long getId(){
 		return id;

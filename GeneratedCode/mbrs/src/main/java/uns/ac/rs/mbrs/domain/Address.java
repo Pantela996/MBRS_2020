@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
+import uns.ac.rs.mbrs.dto.AddressDTO;
 import uns.ac.rs.mbrs.domain.User;
 import java.util.ArrayList;
 import uns.ac.rs.mbrs.domain.Company;
@@ -39,6 +40,12 @@ public class Address {
 	private EducationInsitution educationInstitution;
 
 	public Address(){}
+	
+	public Address(AddressDTO addressDTO){
+		this.street = addressDTO.getStreet();
+		this.city = addressDTO.getCity();
+		this.country = addressDTO.getCountry();
+	}
 
 	public Long getId(){
 		return id;

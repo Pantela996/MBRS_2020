@@ -67,7 +67,8 @@ ${class.visibility} class ${class.name}Controller {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<${class.name}DTO> add(@RequestBody @Valid ${class.name}DTO new${class.name}) {
 
-		${class.name} saved${class.name} = ${class.name?uncap_first}Service.save(to${class.name}.convert(new${class.name}));
+		${class.name} ${class.name?uncap_first} = new ${class.name}(new${class.name});
+		${class.name} saved${class.name} = ${class.name?uncap_first}Service.save(${class.name?uncap_first});
 
 		return new ResponseEntity<>(
 			modelMapper.map(saved${class.name}, ${class.name}DTO.class),
@@ -78,11 +79,19 @@ ${class.visibility} class ${class.name}Controller {
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
 	public ResponseEntity<${class.name}DTO> edit(@RequestBody @Valid ${class.name}DTO ${class.name?uncap_first}, @PathVariable Long id) {
 
-		if (id != ${class.name?uncap_first}.getId()) {
+		${class.name} found${class.name} = ${class.name?uncap_first}Service.findOne(id);
+		
+		if (found${class.name} == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		${class.name} persisted = ${class.name?uncap_first}Service.save(to${class.name}.convert(${class.name?uncap_first}));
+		<#list class.properties as property>
+		<#if property.type.typePackage?contains("Primitive")>
+		found${class.name}.set${property.name?cap_first}(${class.name?uncap_first}.get${property.name?cap_first}());
+		</#if>
+		</#list>
+
+		${class.name} persisted = ${class.name?uncap_first}Service.save(found${class.name});
 
 		return new ResponseEntity<>(
 			modelMapper.map(persisted, ${class.name}DTO.class),

@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
+import uns.ac.rs.mbrs.dto.PostDTO;
 import uns.ac.rs.mbrs.domain.User;
 
 
@@ -24,12 +25,17 @@ public class Post {
 	private String content;
 
 	@Column(name="createdate", unique=false)
-	private date createDate;
+	private Date createDate;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	private User user;
 
 	public Post(){}
+	
+	public Post(PostDTO postDTO){
+		this.description = postDTO.getDescription();
+		this.content = postDTO.getContent();
+	}
 
 	public Long getId(){
 		return id;
@@ -57,11 +63,11 @@ public class Post {
 	}
 
 	
-	public date getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(date createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 

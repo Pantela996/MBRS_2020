@@ -67,7 +67,8 @@ public class SkillController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<SkillDTO> add(@RequestBody @Valid SkillDTO newSkill) {
 
-		Skill savedSkill = skillService.save(toSkill.convert(newSkill));
+		Skill skill = new Skill(newSkill);
+		Skill savedSkill = skillService.save(skill);
 
 		return new ResponseEntity<>(
 			modelMapper.map(savedSkill, SkillDTO.class),
@@ -78,11 +79,15 @@ public class SkillController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
 	public ResponseEntity<SkillDTO> edit(@RequestBody @Valid SkillDTO skill, @PathVariable Long id) {
 
-		if (id != skill.getId()) {
+		Skill foundSkill = skillService.findOne(id);
+		
+		if (foundSkill == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		Skill persisted = skillService.save(toSkill.convert(skill));
+		foundSkill.setName(skill.getName());
+
+		Skill persisted = skillService.save(foundSkill);
 
 		return new ResponseEntity<>(
 			modelMapper.map(persisted, SkillDTO.class),

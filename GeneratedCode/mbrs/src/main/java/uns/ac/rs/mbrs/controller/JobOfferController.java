@@ -67,7 +67,8 @@ public class JobOfferController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<JobOfferDTO> add(@RequestBody @Valid JobOfferDTO newJobOffer) {
 
-		JobOffer savedJobOffer = jobOfferService.save(toJobOffer.convert(newJobOffer));
+		JobOffer jobOffer = new JobOffer(newJobOffer);
+		JobOffer savedJobOffer = jobOfferService.save(jobOffer);
 
 		return new ResponseEntity<>(
 			modelMapper.map(savedJobOffer, JobOfferDTO.class),
@@ -78,11 +79,14 @@ public class JobOfferController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
 	public ResponseEntity<JobOfferDTO> edit(@RequestBody @Valid JobOfferDTO jobOffer, @PathVariable Long id) {
 
-		if (id != jobOffer.getId()) {
+		JobOffer foundJobOffer = jobOfferService.findOne(id);
+		
+		if (foundJobOffer == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		JobOffer persisted = jobOfferService.save(toJobOffer.convert(jobOffer));
+
+		JobOffer persisted = jobOfferService.save(foundJobOffer);
 
 		return new ResponseEntity<>(
 			modelMapper.map(persisted, JobOfferDTO.class),

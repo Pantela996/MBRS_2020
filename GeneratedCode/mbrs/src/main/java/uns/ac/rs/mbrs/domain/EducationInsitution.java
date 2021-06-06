@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
+import uns.ac.rs.mbrs.dto.EducationInsitutionDTO;
 import uns.ac.rs.mbrs.domain.Module;
 import java.util.ArrayList;
 import uns.ac.rs.mbrs.domain.Address;
@@ -29,6 +30,10 @@ public class EducationInsitution {
 	private Address address;
 
 	public EducationInsitution(){}
+	
+	public EducationInsitution(EducationInsitutionDTO educationInsitutionDTO){
+		this.name = educationInsitutionDTO.getName();
+	}
 
 	public Long getId(){
 		return id;

@@ -8,15 +8,17 @@
 <body>
     <p>Index User!</p>
     <div id="content">
-    <tbody>
-	    <tr th:each="listElement: ${list}">
-	       	<td th:text="${listElement.username}" />
-	       	<td th:text="${listElement.password}" />
-	       	<td th:text="${listElement.firstName}" />
-	       	<td th:text="${listElement.lastName}" />
-	       	<td th:text="${listElement.summary}" />
-	    </tr>
-    </tbody>
+    <table>
+        <tbody>
+		    <tr th:each="listElement: ${list}">
+		       	<td th:text="${listElement.username}" />
+		       	<td th:text="${listElement.password}" />
+		       	<td th:text="${listElement.firstName}" />
+		       	<td th:text="${listElement.lastName}" />
+		       	<td th:text="${listElement.summary}" />
+		    </tr>
+	    </tbody>
+	</table>
     </div>
 </body>
 

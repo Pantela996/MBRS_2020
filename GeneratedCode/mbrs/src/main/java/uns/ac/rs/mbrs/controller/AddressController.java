@@ -67,7 +67,8 @@ public class AddressController {
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<AddressDTO> add(@RequestBody @Valid AddressDTO newAddress) {
 
-		Address savedAddress = addressService.save(toAddress.convert(newAddress));
+		Address address = new Address(newAddress);
+		Address savedAddress = addressService.save(address);
 
 		return new ResponseEntity<>(
 			modelMapper.map(savedAddress, AddressDTO.class),
@@ -78,11 +79,17 @@ public class AddressController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
 	public ResponseEntity<AddressDTO> edit(@RequestBody @Valid AddressDTO address, @PathVariable Long id) {
 
-		if (id != address.getId()) {
+		Address foundAddress = addressService.findOne(id);
+		
+		if (foundAddress == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		Address persisted = addressService.save(toAddress.convert(address));
+		foundAddress.setStreet(address.getStreet());
+		foundAddress.setCity(address.getCity());
+		foundAddress.setCountry(address.getCountry());
+
+		Address persisted = addressService.save(foundAddress);
 
 		return new ResponseEntity<>(
 			modelMapper.map(persisted, AddressDTO.class),

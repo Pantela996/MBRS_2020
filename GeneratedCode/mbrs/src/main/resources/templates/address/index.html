@@ -9,14 +9,14 @@
     <p>Index Address!</p>
     <div id="content">
     <table>
-	    <tbody>
+        <tbody>
 		    <tr th:each="listElement: ${list}">
 		       	<td th:text="${listElement.street}" />
 		       	<td th:text="${listElement.city}" />
 		       	<td th:text="${listElement.country}" />
 		    </tr>
 	    </tbody>
-    </table>
+	</table>
     </div>
 </body>
 

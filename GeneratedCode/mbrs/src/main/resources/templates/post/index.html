@@ -8,12 +8,14 @@
 <body>
     <p>Index Post!</p>
     <div id="content">
-    <tbody>
-	    <tr th:each="listElement: ${list}">
-	       	<td th:text="${listElement.description}" />
-	       	<td th:text="${listElement.content}" />
-	    </tr>
-    </tbody>
+    <table>
+        <tbody>
+		    <tr th:each="listElement: ${list}">
+		       	<td th:text="${listElement.description}" />
+		       	<td th:text="${listElement.content}" />
+		    </tr>
+	    </tbody>
+	</table>
     </div>
 </body>
 

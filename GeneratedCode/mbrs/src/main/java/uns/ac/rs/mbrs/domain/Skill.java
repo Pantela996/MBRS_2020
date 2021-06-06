@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
+import uns.ac.rs.mbrs.dto.SkillDTO;
 import uns.ac.rs.mbrs.domain.JobOffer;
 import java.util.ArrayList;
 import uns.ac.rs.mbrs.domain.User;
@@ -29,6 +30,10 @@ public class Skill {
 	private ArrayList<User> user;
 
 	public Skill(){}
+	
+	public Skill(SkillDTO skillDTO){
+		this.name = skillDTO.getName();
+	}
 
 	public Long getId(){
 		return id;
