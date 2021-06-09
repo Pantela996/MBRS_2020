@@ -25,7 +25,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 		ActionsConfiguratorsManager manager = ActionsConfiguratorsManager.getInstance();		
 		manager.addMainMenuConfigurator(new MainMenuConfigurator(getSubmenuActions()));
 
-
+		mainClassOptions();
 		domainOptions();
 		enumOptions();
 		dtoOptions();
@@ -41,6 +41,12 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 
 		pomOptions();
 		appPropertiesOptions();
+	}
+
+	private void mainClassOptions() {
+		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main/java/uns/ac/rs/mbrs", "mainclass", "templates", "MbrsApplication.java", true, "");
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("MainClassGenerator", go);
+		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
 
 	private void domainOptions() {

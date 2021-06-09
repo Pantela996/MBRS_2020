@@ -11,7 +11,7 @@ import ${import};
 
 @Table(name="${class.name?uncap_first}")
 @Entity
-${class.visibility} class ${class.name} {
+${class.visibility} class ${class.name} <#if class.generalization??>extends ${class.generalization}</#if> {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

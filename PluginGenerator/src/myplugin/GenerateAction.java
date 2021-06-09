@@ -24,6 +24,7 @@ import myplugin.generator.DTOGenerator;
 import myplugin.generator.DomainGenerator;
 import myplugin.generator.EJBGenerator;
 import myplugin.generator.EnumGenerator;
+import myplugin.generator.MainClassGenerator;
 import myplugin.generator.PomGenerator;
 import myplugin.generator.RepositoryGenerator;
 import myplugin.generator.ServiceGenerator;
@@ -57,6 +58,8 @@ class GenerateAction extends MDAction {
 		ModelAnalyzer analyzer = null;
 		GeneratorOptions generatorOptions = null;
 		try {
+			
+			generateMainClass(analyzer, root, generatorOptions);
 			generateDomain(analyzer, root, generatorOptions);
 			generateEnumeration(analyzer, root, generatorOptions);
 			generateDto(analyzer, root, generatorOptions);
@@ -77,6 +80,14 @@ class GenerateAction extends MDAction {
 		} catch (AnalyzeException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
+	}
+
+	private void generateMainClass(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {
+		go = ProjectOptions.getProjectOptions().getGeneratorOptions().get("MainClassGenerator");
+		MainClassGenerator mainClassGenerator = new MainClassGenerator(go);
+		mainClassGenerator.generate();
+		JOptionPane.showMessageDialog(null, "Code is successfully generated! Generated code is in folder: "
+				+ go.getOutputPath());
 	}
 
 	private void generateDomain(ModelAnalyzer analyzer, Package root, GeneratorOptions go) throws AnalyzeException {

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Table(name="connection")
 @Entity
-public class Connection {
+public class Connection  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

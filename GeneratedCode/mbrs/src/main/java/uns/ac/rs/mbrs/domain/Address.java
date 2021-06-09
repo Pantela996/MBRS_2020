@@ -13,7 +13,7 @@ import uns.ac.rs.mbrs.domain.EducationInstitution;
 
 @Table(name="address")
 @Entity
-public class Address {
+public class Address  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

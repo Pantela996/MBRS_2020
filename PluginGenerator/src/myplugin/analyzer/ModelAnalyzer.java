@@ -20,6 +20,7 @@ import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Package;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Class;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Enumeration;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Property;
+import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Generalization;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Type;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.Association;
 import com.nomagic.uml2.ext.magicdraw.classes.mdkernel.MultiplicityElement;
@@ -83,6 +84,10 @@ public class ModelAnalyzer {
 					FMModel.getInstance().getAssociations().add(fmAssociation);
 				}
 				
+				if (ownedElement instanceof Generalization) {
+					Generalization ge = (Generalization) ownedElement;
+				}
+				
 			}
 			
 			for (Iterator<Element> it = pack.getOwnedElement().iterator(); it.hasNext();) {
@@ -128,6 +133,11 @@ public class ModelAnalyzer {
 			Property p = it.next();
 			FMProperty prop = getPropertyData(p, cl);
 			fmClass.addProperty(prop);
+		}
+		
+		if (!cl.getGeneralization().isEmpty()) {
+			String generalization = ((Class)cl.getGeneralization().iterator().next().getTarget().iterator().next()).getName();
+			fmClass.setGeneralization(generalization);
 		}
 
 		/**

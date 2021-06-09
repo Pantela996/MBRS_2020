@@ -12,7 +12,7 @@ import java.util.List;
 
 @Table(name="jobOffer")
 @Entity
-public class JobOffer {
+public class JobOffer extends Post {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

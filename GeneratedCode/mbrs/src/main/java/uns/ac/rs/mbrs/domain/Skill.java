@@ -12,7 +12,7 @@ import uns.ac.rs.mbrs.domain.User;
 
 @Table(name="skill")
 @Entity
-public class Skill {
+public class Skill  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

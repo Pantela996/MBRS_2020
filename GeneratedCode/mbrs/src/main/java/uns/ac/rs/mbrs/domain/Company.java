@@ -10,7 +10,7 @@ import uns.ac.rs.mbrs.domain.Job;
 
 @Table(name="company")
 @Entity
-public class Company {
+public class Company  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

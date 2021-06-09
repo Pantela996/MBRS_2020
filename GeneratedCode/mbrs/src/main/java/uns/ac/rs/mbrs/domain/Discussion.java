@@ -8,7 +8,7 @@ import uns.ac.rs.mbrs.dto.DiscussionDTO;
 
 @Table(name="discussion")
 @Entity
-public class Discussion {
+public class Discussion extends Post {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

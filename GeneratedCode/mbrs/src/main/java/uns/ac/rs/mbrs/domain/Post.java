@@ -9,7 +9,7 @@ import uns.ac.rs.mbrs.domain.User;
 
 @Table(name="post")
 @Entity
-public class Post {
+public class Post  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
