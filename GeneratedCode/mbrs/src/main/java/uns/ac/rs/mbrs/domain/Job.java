@@ -1,6 +1,4 @@
 package uns.ac.rs.mbrs.domain;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
@@ -8,6 +6,7 @@ import javax.validation.constraints.*;
 import uns.ac.rs.mbrs.dto.JobDTO;
 import uns.ac.rs.mbrs.domain.Experience;
 import java.util.ArrayList;
+import java.util.List;
 import uns.ac.rs.mbrs.domain.JobOffer;
 import uns.ac.rs.mbrs.domain.Company;
 
@@ -21,16 +20,16 @@ public class Job {
 	private Long id;
 
 
-	@Column(name="nameofposition", unique=false)
+	@Column(name="nameofposition", unique=true)
 	private String nameOfPosition;
 
 	@OneToMany(mappedBy="job",cascade=CascadeType.REMOVE)
-	private ArrayList<Experience> experience;
+	private List<Experience> experience;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@OneToOne
 	private JobOffer jobOffer;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@OneToOne
 	private Company company;
 
 	public Job(){}
@@ -56,7 +55,7 @@ public class Job {
 	}
 
 	
-	public ArrayList<Experience> getExperience() {
+	public List<Experience> getExperience() {
 		return experience;
 	}
 

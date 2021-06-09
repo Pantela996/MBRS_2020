@@ -1,6 +1,4 @@
 package uns.ac.rs.mbrs.domain;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
@@ -8,6 +6,7 @@ import javax.validation.constraints.*;
 import uns.ac.rs.mbrs.dto.SkillDTO;
 import uns.ac.rs.mbrs.domain.JobOffer;
 import java.util.ArrayList;
+import java.util.List;
 import uns.ac.rs.mbrs.domain.User;
 
 
@@ -20,14 +19,22 @@ public class Skill {
 	private Long id;
 
 
-	@Column(name="name", unique=false)
+	@Column(name="name", unique=true)
 	private String name;
 
-	@OneToMany(mappedBy="skill",cascade=CascadeType.REMOVE)
-	private ArrayList<JobOffer> jobOffer;
+	@ManyToMany
+@JoinTable(name="jobOffers",
+	 joinColumns=@JoinColumn(name="skillId"),
+	 inverseJoinColumns=@JoinColumn(name="jobOfferId")
+	)
+	private List<JobOffer> jobOffer;
 
-	@OneToMany(mappedBy="skill",cascade=CascadeType.REMOVE)
-	private ArrayList<User> user;
+	@ManyToMany
+@JoinTable(name="users",
+	 joinColumns=@JoinColumn(name="skillId"),
+	 inverseJoinColumns=@JoinColumn(name="userId")
+	)
+	private List<User> user;
 
 	public Skill(){}
 	
@@ -52,7 +59,7 @@ public class Skill {
 	}
 
 	
-	public ArrayList<JobOffer> getJobOffer() {
+	public List<JobOffer> getJobOffer() {
 		return jobOffer;
 	}
 
@@ -61,7 +68,7 @@ public class Skill {
 	}
 
 	
-	public ArrayList<User> getUser() {
+	public List<User> getUser() {
 		return user;
 	}
 

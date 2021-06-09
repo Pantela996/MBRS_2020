@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList; 
 import uns.ac.rs.mbrs.dto.UserDTO;
 import uns.ac.rs.mbrs.dto.CompanyDTO;
-import uns.ac.rs.mbrs.dto.EducationInsitutionDTO;
+import uns.ac.rs.mbrs.dto.EducationInstitutionDTO;
 
 
 @Getter
@@ -22,9 +22,9 @@ public class AddressDTO{
 	private String street;
 	private String city;
 	private String country;
-	private ArrayList<UserDTO> user;
+	private UserDTO user;
 	private CompanyDTO company;
-	private EducationInsitutionDTO educationInstitution;
+	private EducationInstitutionDTO educationInstitution;
 
 	public String getStreet() {
 		return street;
@@ -50,14 +50,14 @@ public class AddressDTO{
 		this.country = country;
 	}
 
-	public ArrayList<UserDTO> getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
 
-	public void setUser(ArrayList<UserDTO> user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
-	
+
 	public CompanyDTO getCompany() {
 		return company;
 	}
@@ -66,11 +66,11 @@ public class AddressDTO{
 		this.company = company;
 	}
 
-	public EducationInsitutionDTO getEducationInstitution() {
+	public EducationInstitutionDTO getEducationInstitution() {
 		return educationInstitution;
 	}
 
-	public void setEducationInstitution(EducationInsitutionDTO educationInstitution) {
+	public void setEducationInstitution(EducationInstitutionDTO educationInstitution) {
 		this.educationInstitution = educationInstitution;
 	}
 

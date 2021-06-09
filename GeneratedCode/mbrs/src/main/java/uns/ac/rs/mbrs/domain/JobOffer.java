@@ -1,6 +1,4 @@
 package uns.ac.rs.mbrs.domain;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
@@ -9,6 +7,7 @@ import uns.ac.rs.mbrs.dto.JobOfferDTO;
 import uns.ac.rs.mbrs.domain.Job;
 import uns.ac.rs.mbrs.domain.Skill;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Table(name="jobOffer")
@@ -20,14 +19,18 @@ public class JobOffer {
 	private Long id;
 
 
-	@Column(name="expirationdate", unique=false)
+	@Column(name="expirationdate", unique=true)
 	private Date expirationDate;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@OneToOne
 	private Job job;
 
-	@OneToMany(mappedBy="joboffer",cascade=CascadeType.REMOVE)
-	private ArrayList<Skill> skill;
+	@ManyToMany
+@JoinTable(name="skills",
+	 joinColumns=@JoinColumn(name="jobofferId"),
+	 inverseJoinColumns=@JoinColumn(name="skillId")
+	)
+	private List<Skill> skill;
 
 	public JobOffer(){}
 	
@@ -60,7 +63,7 @@ public class JobOffer {
 	}
 
 	
-	public ArrayList<Skill> getSkill() {
+	public List<Skill> getSkill() {
 		return skill;
 	}
 

@@ -19,8 +19,8 @@ public class SkillDTO{
 	private Long id;
 	
 	private String name;
-	private ArrayList<JobOfferDTO> jobOffer;
-	private ArrayList<UserDTO> user;
+	private JobOfferDTO jobOffer;
+	private UserDTO user;
 
 	public String getName() {
 		return name;
@@ -30,21 +30,21 @@ public class SkillDTO{
 		this.name = name;
 	}
 
-	public ArrayList<JobOfferDTO> getJobOffer() {
+	public JobOfferDTO getJobOffer() {
 		return jobOffer;
 	}
 
-	public void setJobOffer(ArrayList<JobOfferDTO> jobOffer) {
+	public void setJobOffer(JobOfferDTO jobOffer) {
 		this.jobOffer = jobOffer;
 	}
-	
-	public ArrayList<UserDTO> getUser() {
+
+	public UserDTO getUser() {
 		return user;
 	}
 
-	public void setUser(ArrayList<UserDTO> user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
-	
+
 
 }

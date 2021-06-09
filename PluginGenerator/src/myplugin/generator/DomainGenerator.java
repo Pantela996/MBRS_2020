@@ -43,9 +43,10 @@ public class DomainGenerator extends BasicGenerator {
 					imports.add(cl.getTypePackage()+"."+prop.getType().getName());
 					System.out.println(prop.getType().getTypePackage());
 				}
-				if (!needsArrayList && prop.getAssociation().contains("@OneToMany")) {
+				if (!needsArrayList && (prop.getAssociation().contains("@OneToMany") || prop.getAssociation().contains("@ManyToMany"))) {
 					needsArrayList = true;
 					imports.add("java.util.ArrayList");
+					imports.add("java.util.List");
 				}
 			}
 

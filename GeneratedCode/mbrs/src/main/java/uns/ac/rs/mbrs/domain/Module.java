@@ -1,6 +1,4 @@
 package uns.ac.rs.mbrs.domain;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
@@ -8,7 +6,8 @@ import javax.validation.constraints.*;
 import uns.ac.rs.mbrs.dto.ModuleDTO;
 import uns.ac.rs.mbrs.domain.Education;
 import java.util.ArrayList;
-import uns.ac.rs.mbrs.domain.EducationInsitution;
+import java.util.List;
+import uns.ac.rs.mbrs.domain.EducationInstitution;
 
 
 @Table(name="module")
@@ -20,14 +19,14 @@ public class Module {
 	private Long id;
 
 
-	@Column(name="name", unique=false)
+	@Column(name="name", unique=true)
 	private String name;
 
 	@OneToMany(mappedBy="module",cascade=CascadeType.REMOVE)
-	private ArrayList<Education> education;
+	private List<Education> education;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	private EducationInsitution educationInstituion;
+	private EducationInstitution educationInstitution;
 
 	public Module(){}
 	
@@ -52,7 +51,7 @@ public class Module {
 	}
 
 	
-	public ArrayList<Education> getEducation() {
+	public List<Education> getEducation() {
 		return education;
 	}
 
@@ -61,12 +60,12 @@ public class Module {
 	}
 
 	
-	public EducationInsitution getEducationInstituion() {
-		return educationInstituion;
+	public EducationInstitution getEducationInstitution() {
+		return educationInstitution;
 	}
 
-	public void setEducationInstituion(EducationInsitution educationInstituion) {
-		this.educationInstituion = educationInstituion;
+	public void setEducationInstitution(EducationInstitution educationInstitution) {
+		this.educationInstitution = educationInstitution;
 	}
 
 	

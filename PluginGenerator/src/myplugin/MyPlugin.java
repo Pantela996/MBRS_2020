@@ -37,6 +37,7 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 
 		viewsIndexOptions();
 		viewsEditOptions();
+		viewsNewOptions();
 
 		pomOptions();
 		appPropertiesOptions();
@@ -96,6 +97,12 @@ public class MyPlugin extends com.nomagic.magicdraw.plugins.Plugin {
 	private void viewsEditOptions() {
 		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main", "editview", "templates", "{0}/edit.html", true, "resources.templates");
 		ProjectOptions.getProjectOptions().getGeneratorOptions().put("EditGenerator", go);
+		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
+	}
+	
+	private void viewsNewOptions() {
+		GeneratorOptions go = new GeneratorOptions("c:/Temp/mbrs/src/main", "newview", "templates", "{0}/new.html", true, "resources.templates");
+		ProjectOptions.getProjectOptions().getGeneratorOptions().put("NewGenerator", go);
 		go.setTemplateDir(pluginDir + File.separator + go.getTemplateDir());
 	}
 

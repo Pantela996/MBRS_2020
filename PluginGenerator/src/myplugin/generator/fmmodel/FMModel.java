@@ -12,6 +12,7 @@ public class FMModel {
 	
 	private List<FMClass> classes = new ArrayList<FMClass>();
 	private List<FMEnumeration> enumerations = new ArrayList<FMEnumeration>();
+	private List<FMAssociation> associations = new ArrayList<FMAssociation>();
 	
 	//....
 	/** @ToDo: Add lists of other elements, if needed */
@@ -41,6 +42,23 @@ public class FMModel {
 		this.enumerations = enumerations;
 	}
 
+	public List<FMAssociation> getAssociations() {
+		return associations;
+	}
+
+	public void setAssociations(List<FMAssociation> associations) {
+		this.associations = associations;
+	}
+
+	public FMAssociation getAssociationByClassNames(String class1, String class2) {
+		for (FMAssociation fma : this.associations) {
+			if ((fma.getFirstMemberClass() == class1 && fma.getSecondMemberClass() == class2) ||
+					(fma.getFirstMemberClass() == class2 && fma.getSecondMemberClass() == class1)) {
+				return fma;
+			}
+		}
+		return null;
+	}
 
 
 }

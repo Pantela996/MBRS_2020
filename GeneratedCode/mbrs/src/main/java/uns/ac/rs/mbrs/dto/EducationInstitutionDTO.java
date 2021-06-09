@@ -15,20 +15,12 @@ import uns.ac.rs.mbrs.dto.AddressDTO;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EducationInsitutionDTO{
+public class EducationInstitutionDTO{
 	private Long id;
 	
-	private String name;
 	private ArrayList<ModuleDTO> module;
 	private AddressDTO address;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	private String name;
 
 	public ArrayList<ModuleDTO> getModule() {
 		return module;
@@ -44,6 +36,14 @@ public class EducationInsitutionDTO{
 
 	public void setAddress(AddressDTO address) {
 		this.address = address;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 

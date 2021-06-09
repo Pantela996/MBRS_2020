@@ -20,7 +20,7 @@ public class JobOfferDTO{
 	
 	private Date expirationDate;
 	private JobDTO job;
-	private ArrayList<SkillDTO> skill;
+	private SkillDTO skill;
 
 	public Date getExpirationDate() {
 		return expirationDate;
@@ -38,13 +38,13 @@ public class JobOfferDTO{
 		this.job = job;
 	}
 
-	public ArrayList<SkillDTO> getSkill() {
+	public SkillDTO getSkill() {
 		return skill;
 	}
 
-	public void setSkill(ArrayList<SkillDTO> skill) {
+	public void setSkill(SkillDTO skill) {
 		this.skill = skill;
 	}
-	
+
 
 }

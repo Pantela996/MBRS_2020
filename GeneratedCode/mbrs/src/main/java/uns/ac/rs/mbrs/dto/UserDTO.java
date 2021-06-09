@@ -28,10 +28,10 @@ public class UserDTO{
 	private String lastName;
 	private String summary;
 	private ArrayList<PostDTO> posts;
-	private ArrayList<ConnectionDTO> connection;
+	private ConnectionDTO connection;
 	private ArrayList<ExperienceDTO> experience;
-	private ArrayList<AddressDTO> address;
-	private ArrayList<SkillDTO> skills;
+	private AddressDTO address;
+	private SkillDTO skills;
 	private ArrayList<EducationDTO> educations;
 
 	public String getUsername() {
@@ -82,14 +82,14 @@ public class UserDTO{
 		this.posts = posts;
 	}
 	
-	public ArrayList<ConnectionDTO> getConnection() {
+	public ConnectionDTO getConnection() {
 		return connection;
 	}
 
-	public void setConnection(ArrayList<ConnectionDTO> connection) {
+	public void setConnection(ConnectionDTO connection) {
 		this.connection = connection;
 	}
-	
+
 	public ArrayList<ExperienceDTO> getExperience() {
 		return experience;
 	}
@@ -98,22 +98,22 @@ public class UserDTO{
 		this.experience = experience;
 	}
 	
-	public ArrayList<AddressDTO> getAddress() {
+	public AddressDTO getAddress() {
 		return address;
 	}
 
-	public void setAddress(ArrayList<AddressDTO> address) {
+	public void setAddress(AddressDTO address) {
 		this.address = address;
 	}
-	
-	public ArrayList<SkillDTO> getSkills() {
+
+	public SkillDTO getSkills() {
 		return skills;
 	}
 
-	public void setSkills(ArrayList<SkillDTO> skills) {
+	public void setSkills(SkillDTO skills) {
 		this.skills = skills;
 	}
-	
+
 	public ArrayList<EducationDTO> getEducations() {
 		return educations;
 	}

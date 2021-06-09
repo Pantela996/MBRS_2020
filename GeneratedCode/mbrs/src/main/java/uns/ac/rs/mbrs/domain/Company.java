@@ -1,6 +1,4 @@
 package uns.ac.rs.mbrs.domain;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
@@ -19,13 +17,13 @@ public class Company {
 	private Long id;
 
 
-	@Column(name="name", unique=false)
+	@Column(name="name", unique=true)
 	private String name;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@OneToOne
 	private Address address;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@OneToOne
 	private Job job;
 
 	public Company(){}

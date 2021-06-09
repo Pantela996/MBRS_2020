@@ -1,6 +1,4 @@
 package uns.ac.rs.mbrs.domain;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
@@ -18,13 +16,13 @@ public class Post {
 	private Long id;
 
 
-	@Column(name="description", unique=false)
+	@Column(name="description", unique=true)
 	private String description;
 
-	@Column(name="content", unique=false)
+	@Column(name="content", unique=true)
 	private String content;
 
-	@Column(name="createdate", unique=false)
+	@Column(name="createdate", unique=true)
 	private Date createDate;
 
 	@ManyToOne(fetch=FetchType.LAZY)

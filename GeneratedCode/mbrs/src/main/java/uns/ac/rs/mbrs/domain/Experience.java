@@ -1,6 +1,4 @@
 package uns.ac.rs.mbrs.domain;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
@@ -19,10 +17,10 @@ public class Experience {
 	private Long id;
 
 
-	@Column(name="startdate", unique=false)
+	@Column(name="startdate", unique=true)
 	private Date startDate;
 
-	@Column(name="enddate", unique=false)
+	@Column(name="enddate", unique=true)
 	private Date endDate;
 
 	@ManyToOne(fetch=FetchType.LAZY)

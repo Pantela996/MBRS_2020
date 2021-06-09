@@ -18,7 +18,7 @@ public class ConnectionDTO{
 	private Long id;
 	
 	private Boolean active;
-	private ArrayList<UserDTO> user;
+	private UserDTO user;
 
 	public Boolean getActive() {
 		return active;
@@ -28,13 +28,13 @@ public class ConnectionDTO{
 		this.active = active;
 	}
 
-	public ArrayList<UserDTO> getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
 
-	public void setUser(ArrayList<UserDTO> user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
-	
+
 
 }

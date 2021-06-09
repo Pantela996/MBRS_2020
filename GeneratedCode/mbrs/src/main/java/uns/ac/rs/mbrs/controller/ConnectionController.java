@@ -13,18 +13,19 @@ import uns.ac.rs.mbrs.dto.ConnectionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
 
 import org.modelmapper.ModelMapper;
 
 
-@RestController
-@RequestMapping(value="/api/connection")
+@Controller
+@RequestMapping(value="/connection")
 public class ConnectionController {  
 
 	@Autowired
@@ -33,7 +34,7 @@ public class ConnectionController {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	String getConnectionList (Model model) {
 
 		List<Connection> connectionList = connectionService.findAll();

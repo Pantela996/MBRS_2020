@@ -13,18 +13,19 @@ import uns.ac.rs.mbrs.dto.${class.name}DTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
 
 import org.modelmapper.ModelMapper;
 
 
-@RestController
-@RequestMapping(value="/api/${class.name?uncap_first}")
+@Controller
+@RequestMapping(value="/${class.name?uncap_first}")
 ${class.visibility} class ${class.name}Controller {  
 
 	@Autowired
@@ -33,7 +34,7 @@ ${class.visibility} class ${class.name}Controller {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	String get${class.name}List (Model model) {
 
 		List<${class.name}> ${class.name?uncap_first}List = ${class.name?uncap_first}Service.findAll();

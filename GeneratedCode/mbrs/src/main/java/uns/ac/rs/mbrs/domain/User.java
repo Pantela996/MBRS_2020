@@ -1,6 +1,4 @@
 package uns.ac.rs.mbrs.domain;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
@@ -8,6 +6,7 @@ import javax.validation.constraints.*;
 import uns.ac.rs.mbrs.dto.UserDTO;
 import uns.ac.rs.mbrs.domain.Post;
 import java.util.ArrayList;
+import java.util.List;
 import uns.ac.rs.mbrs.domain.Connection;
 import uns.ac.rs.mbrs.domain.Experience;
 import uns.ac.rs.mbrs.domain.Address;
@@ -27,35 +26,47 @@ public class User {
 	@Column(name="username", unique=true)
 	private String username;
 
-	@Column(name="password", unique=false)
+	@Column(name="password", unique=true)
 	private String password;
 
-	@Column(name="firstname", unique=false)
+	@Column(name="firstname", unique=true)
 	private String firstName;
 
-	@Column(name="lastname", unique=false)
+	@Column(name="lastname", unique=true)
 	private String lastName;
 
-	@Column(name="summary", unique=false)
+	@Column(name="summary", unique=true)
 	private String summary;
 
 	@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
-	private ArrayList<Post> posts;
+	private List<Post> posts;
+
+	@ManyToMany
+@JoinTable(name="connections",
+	 joinColumns=@JoinColumn(name="userId"),
+	 inverseJoinColumns=@JoinColumn(name="connectionId")
+	)
+	private List<Connection> connection;
 
 	@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
-	private ArrayList<Connection> connection;
+	private List<Experience> experience;
+
+	@ManyToMany
+@JoinTable(name="addresss",
+	 joinColumns=@JoinColumn(name="userId"),
+	 inverseJoinColumns=@JoinColumn(name="addressId")
+	)
+	private List<Address> address;
+
+	@ManyToMany
+@JoinTable(name="skillss",
+	 joinColumns=@JoinColumn(name="userId"),
+	 inverseJoinColumns=@JoinColumn(name="skillsId")
+	)
+	private List<Skill> skills;
 
 	@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
-	private ArrayList<Experience> experience;
-
-	@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
-	private ArrayList<Address> address;
-
-	@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
-	private ArrayList<Skill> skills;
-
-	@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
-	private ArrayList<Education> educations;
+	private List<Education> educations;
 
 	public User(){}
 	
@@ -120,7 +131,7 @@ public class User {
 	}
 
 	
-	public ArrayList<Post> getPosts() {
+	public List<Post> getPosts() {
 		return posts;
 	}
 
@@ -129,7 +140,7 @@ public class User {
 	}
 
 	
-	public ArrayList<Connection> getConnection() {
+	public List<Connection> getConnection() {
 		return connection;
 	}
 
@@ -138,7 +149,7 @@ public class User {
 	}
 
 	
-	public ArrayList<Experience> getExperience() {
+	public List<Experience> getExperience() {
 		return experience;
 	}
 
@@ -147,7 +158,7 @@ public class User {
 	}
 
 	
-	public ArrayList<Address> getAddress() {
+	public List<Address> getAddress() {
 		return address;
 	}
 
@@ -156,7 +167,7 @@ public class User {
 	}
 
 	
-	public ArrayList<Skill> getSkills() {
+	public List<Skill> getSkills() {
 		return skills;
 	}
 
@@ -165,7 +176,7 @@ public class User {
 	}
 
 	
-	public ArrayList<Education> getEducations() {
+	public List<Education> getEducations() {
 		return educations;
 	}
 

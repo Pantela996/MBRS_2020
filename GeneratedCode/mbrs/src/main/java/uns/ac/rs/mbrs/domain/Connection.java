@@ -1,6 +1,4 @@
 package uns.ac.rs.mbrs.domain;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
@@ -8,6 +6,7 @@ import javax.validation.constraints.*;
 import uns.ac.rs.mbrs.dto.ConnectionDTO;
 import uns.ac.rs.mbrs.domain.User;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Table(name="connection")
@@ -19,11 +18,15 @@ public class Connection {
 	private Long id;
 
 
-	@Column(name="active", unique=false)
+	@Column(name="active", unique=true)
 	private Boolean active;
 
-	@OneToMany(mappedBy="connection",cascade=CascadeType.REMOVE)
-	private ArrayList<User> user;
+	@ManyToMany
+@JoinTable(name="users",
+	 joinColumns=@JoinColumn(name="connectionId"),
+	 inverseJoinColumns=@JoinColumn(name="userId")
+	)
+	private List<User> user;
 
 	public Connection(){}
 	
@@ -48,7 +51,7 @@ public class Connection {
 	}
 
 	
-	public ArrayList<User> getUser() {
+	public List<User> getUser() {
 		return user;
 	}
 

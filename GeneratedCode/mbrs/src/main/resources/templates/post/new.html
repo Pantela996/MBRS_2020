@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Edit Post</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <p>Hello Post!</p>
+    <form onsubmit="submitForm();">
+    <label>description</label>
+    <input type="text" id="description" name="description" />
+    <label>content</label>
+    <input type="text" id="content" name="content" />
+    <label>createDate</label>
+    <label>user</label>
+    </form>
+</body>
+<script>
+	$('#editForm').on('submit', function(){
+		$.ajax({
+			url: "/api/post",
+			type: "POST",
+			data: {
+				description: $('#description').val(),
+				content: $('#content').val(),
+				createDate: $('#createDate').val(),
+				user: $('#user').val(),
+			},
+			dataType: 'json',
+			success: function(res){
+				console.log(res);
+
+			}
+		});
+	});
+</script>
+</html>

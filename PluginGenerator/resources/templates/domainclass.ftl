@@ -1,6 +1,4 @@
 package ${class.typePackage};
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
@@ -22,8 +20,8 @@ ${class.visibility} class ${class.name} {
 	<#list class.properties as property>
 
 	${property.association}
-	<#if property.association?contains("@OneToMany")>
-	private ArrayList<${property.type.name}> ${property.name};
+	<#if property.association?contains("@OneToMany") || property.association?contains("@ManyToMany")>
+	private List<${property.type.name}> ${property.name};
 	<#else>
 	private ${property.type.name?cap_first} ${property.name};
 	</#if>
@@ -48,8 +46,8 @@ ${class.visibility} class ${class.name} {
 	}
 
 	<#list class.properties as property>
-	<#if property.association?contains("@OneToMany")>
-	public ArrayList<${property.type.name?cap_first}> get${property.name?cap_first}() {
+	<#if property.association?contains("@OneToMany") || property.association?contains("@ManyToMany")>
+	public List<${property.type.name?cap_first}> get${property.name?cap_first}() {
 		return ${property.name};
 	}
 

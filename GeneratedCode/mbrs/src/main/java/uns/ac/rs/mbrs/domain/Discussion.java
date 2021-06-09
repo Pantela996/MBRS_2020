@@ -1,6 +1,4 @@
 package uns.ac.rs.mbrs.domain;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
@@ -17,7 +15,7 @@ public class Discussion {
 	private Long id;
 
 
-	@Column(name="topic", unique=false)
+	@Column(name="topic", unique=true)
 	private String topic;
 
 	public Discussion(){}

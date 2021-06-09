@@ -1,6 +1,4 @@
 package uns.ac.rs.mbrs.domain;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
@@ -8,8 +6,9 @@ import javax.validation.constraints.*;
 import uns.ac.rs.mbrs.dto.AddressDTO;
 import uns.ac.rs.mbrs.domain.User;
 import java.util.ArrayList;
+import java.util.List;
 import uns.ac.rs.mbrs.domain.Company;
-import uns.ac.rs.mbrs.domain.EducationInsitution;
+import uns.ac.rs.mbrs.domain.EducationInstitution;
 
 
 @Table(name="address")
@@ -21,23 +20,27 @@ public class Address {
 	private Long id;
 
 
-	@Column(name="street", unique=false)
+	@Column(name="street", unique=true)
 	private String street;
 
-	@Column(name="city", unique=false)
+	@Column(name="city", unique=true)
 	private String city;
 
-	@Column(name="country", unique=false)
+	@Column(name="country", unique=true)
 	private String country;
 
-	@OneToMany(mappedBy="address",cascade=CascadeType.REMOVE)
-	private ArrayList<User> user;
+	@ManyToMany
+@JoinTable(name="users",
+	 joinColumns=@JoinColumn(name="addressId"),
+	 inverseJoinColumns=@JoinColumn(name="userId")
+	)
+	private List<User> user;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@OneToOne
 	private Company company;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	private EducationInsitution educationInstitution;
+	@OneToOne
+	private EducationInstitution educationInstitution;
 
 	public Address(){}
 	
@@ -82,7 +85,7 @@ public class Address {
 	}
 
 	
-	public ArrayList<User> getUser() {
+	public List<User> getUser() {
 		return user;
 	}
 
@@ -100,11 +103,11 @@ public class Address {
 	}
 
 	
-	public EducationInsitution getEducationInstitution() {
+	public EducationInstitution getEducationInstitution() {
 		return educationInstitution;
 	}
 
-	public void setEducationInstitution(EducationInsitution educationInstitution) {
+	public void setEducationInstitution(EducationInstitution educationInstitution) {
 		this.educationInstitution = educationInstitution;
 	}
 

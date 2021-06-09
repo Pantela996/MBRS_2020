@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Edit Job</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <p>Hello Job!</p>
+    <form onsubmit="submitForm();">
+    <label>nameOfPosition</label>
+    <input type="text" id="nameOfPosition" name="nameOfPosition" />
+    <label>experience</label>
+    <label>jobOffer</label>
+    <label>company</label>
+    </form>
+</body>
+<script>
+	$('#editForm').on('submit', function(){
+		$.ajax({
+			url: "/api/job",
+			type: "POST",
+			data: {
+				nameOfPosition: $('#nameOfPosition').val(),
+				experience: $('#experience').val(),
+				jobOffer: $('#jobOffer').val(),
+				company: $('#company').val(),
+			},
+			dataType: 'json',
+			success: function(res){
+				console.log(res);
+
+			}
+		});
+	});
+</script>
+</html>

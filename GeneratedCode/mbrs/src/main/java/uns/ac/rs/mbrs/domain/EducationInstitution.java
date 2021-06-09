@@ -1,38 +1,37 @@
 package uns.ac.rs.mbrs.domain;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Date;
 import javax.persistence.*;
 import org.hibernate.validator.constraints.*;
 import javax.validation.constraints.*;
-import uns.ac.rs.mbrs.dto.EducationInsitutionDTO;
+import uns.ac.rs.mbrs.dto.EducationInstitutionDTO;
 import uns.ac.rs.mbrs.domain.Module;
 import java.util.ArrayList;
+import java.util.List;
 import uns.ac.rs.mbrs.domain.Address;
 
 
-@Table(name="educationInsitution")
+@Table(name="educationInstitution")
 @Entity
-public class EducationInsitution {
+public class EducationInstitution {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
 
-	@Column(name="name", unique=false)
-	private String name;
+	@OneToMany(mappedBy="educationInstitution",cascade=CascadeType.REMOVE)
+	private List<Module> module;
 
-	@OneToMany(mappedBy="educationinsitution",cascade=CascadeType.REMOVE)
-	private ArrayList<Module> module;
-
-	@ManyToOne(fetch=FetchType.LAZY)
+	@OneToOne
 	private Address address;
 
-	public EducationInsitution(){}
+	@Column(name="name", unique=true)
+	private String name;
+
+	public EducationInstitution(){}
 	
-	public EducationInsitution(EducationInsitutionDTO educationInsitutionDTO){
-		this.name = educationInsitutionDTO.getName();
+	public EducationInstitution(EducationInstitutionDTO educationInstitutionDTO){
+		this.name = educationInstitutionDTO.getName();
 	}
 
 	public Long getId(){
@@ -43,16 +42,7 @@ public class EducationInsitution {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	
-	public ArrayList<Module> getModule() {
+	public List<Module> getModule() {
 		return module;
 	}
 
@@ -67,6 +57,15 @@ public class EducationInsitution {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	

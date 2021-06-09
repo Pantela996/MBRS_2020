@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList; 
 import uns.ac.rs.mbrs.dto.EducationDTO;
-import uns.ac.rs.mbrs.dto.EducationInsitutionDTO;
+import uns.ac.rs.mbrs.dto.EducationInstitutionDTO;
 
 
 @Getter
@@ -20,7 +20,7 @@ public class ModuleDTO{
 	
 	private String name;
 	private ArrayList<EducationDTO> education;
-	private EducationInsitutionDTO educationInstituion;
+	private EducationInstitutionDTO educationInstitution;
 
 	public String getName() {
 		return name;
@@ -38,12 +38,12 @@ public class ModuleDTO{
 		this.education = education;
 	}
 	
-	public EducationInsitutionDTO getEducationInstituion() {
-		return educationInstituion;
+	public EducationInstitutionDTO getEducationInstitution() {
+		return educationInstitution;
 	}
 
-	public void setEducationInstituion(EducationInsitutionDTO educationInstituion) {
-		this.educationInstituion = educationInstituion;
+	public void setEducationInstitution(EducationInstitutionDTO educationInstitution) {
+		this.educationInstitution = educationInstitution;
 	}
 
 
