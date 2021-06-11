@@ -5,6 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import uns.ac.rs.mbrs.aspects.LoggerAspect;
+
 @SpringBootApplication
 public class MbrsApplication {
 
@@ -16,4 +18,5 @@ public class MbrsApplication {
 	public ModelMapper modelMapper() {
 	    return new ModelMapper();
 	}
+ 
 }

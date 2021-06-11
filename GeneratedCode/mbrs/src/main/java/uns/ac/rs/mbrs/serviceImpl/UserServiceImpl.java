@@ -3,10 +3,14 @@ package uns.ac.rs.mbrs.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import uns.ac.rs.mbrs.domain.User;
+import uns.ac.rs.mbrs.dto.RegisterDTO;
+import uns.ac.rs.mbrs.exceptions.EntityAlreadyExistsException;
+import uns.ac.rs.mbrs.exceptions.InvalidDataException;
 import uns.ac.rs.mbrs.repository.UserRepository;
 import uns.ac.rs.mbrs.service.UserService;
 

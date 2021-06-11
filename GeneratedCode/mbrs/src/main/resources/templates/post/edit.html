@@ -7,25 +7,21 @@
 </head>
 <body>
     <p>Hello Post!</p>
-    <form onsubmit="submitForm();">
+    <form id="editForm">
     <label>description</label>
     <input type="text" id="description" name="description" />
     <label>content</label>
     <input type="text" id="content" name="content" />
-    <label>createDate</label>
-    <label>user</label>
     </form>
 </body>
 <script>
 	$('#editForm').on('submit', function(){
 		$.ajax({
-			url: "/api/post",
+			url: "/post",
 			type: "PUT",
 			data: {
 				description: $('#description').val(),
 				content: $('#content').val(),
-				createDate: $('#createDate').val(),
-				user: $('#user').val(),
 			},
 			dataType: 'json',
 			success: function(res){

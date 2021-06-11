@@ -7,22 +7,18 @@
 </head>
 <body>
     <p>Hello Module!</p>
-    <form onsubmit="submitForm();">
+    <form id="editForm">
     <label>name</label>
     <input type="text" id="name" name="name" />
-    <label>education</label>
-    <label>educationInstitution</label>
     </form>
 </body>
 <script>
 	$('#editForm').on('submit', function(){
 		$.ajax({
-			url: "/api/module",
+			url: "/module",
 			type: "PUT",
 			data: {
 				name: $('#name').val(),
-				education: $('#education').val(),
-				educationInstitution: $('#educationInstitution').val(),
 			},
 			dataType: 'json',
 			success: function(res){

@@ -7,23 +7,15 @@
 </head>
 <body>
     <p>Hello Experience!</p>
-    <form onsubmit="submitForm();">
-    <label>startDate</label>
-    <label>endDate</label>
-    <label>user</label>
-    <label>job</label>
+    <form id="editForm">
     </form>
 </body>
 <script>
 	$('#editForm').on('submit', function(){
 		$.ajax({
-			url: "/api/experience",
+			url: "/experience",
 			type: "PUT",
 			data: {
-				startDate: $('#startDate').val(),
-				endDate: $('#endDate').val(),
-				user: $('#user').val(),
-				job: $('#job').val(),
 			},
 			dataType: 'json',
 			success: function(res){

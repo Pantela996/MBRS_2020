@@ -7,22 +7,18 @@
 </head>
 <body>
     <p>Hello Company!</p>
-    <form onsubmit="submitForm();">
+    <form id="editForm">
     <label>name</label>
     <input type="text" id="name" name="name" />
-    <label>address</label>
-    <label>job</label>
     </form>
 </body>
 <script>
 	$('#editForm').on('submit', function(){
 		$.ajax({
-			url: "/api/company",
+			url: "/company",
 			type: "PUT",
 			data: {
 				name: $('#name').val(),
-				address: $('#address').val(),
-				job: $('#job').val(),
 			},
 			dataType: 'json',
 			success: function(res){

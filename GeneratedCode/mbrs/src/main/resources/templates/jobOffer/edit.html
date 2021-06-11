@@ -7,21 +7,15 @@
 </head>
 <body>
     <p>Hello JobOffer!</p>
-    <form onsubmit="submitForm();">
-    <label>expirationDate</label>
-    <label>job</label>
-    <label>skill</label>
+    <form id="editForm">
     </form>
 </body>
 <script>
 	$('#editForm').on('submit', function(){
 		$.ajax({
-			url: "/api/jobOffer",
+			url: "/jobOffer",
 			type: "PUT",
 			data: {
-				expirationDate: $('#expirationDate').val(),
-				job: $('#job').val(),
-				skill: $('#skill').val(),
 			},
 			dataType: 'json',
 			success: function(res){

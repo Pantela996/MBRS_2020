@@ -7,7 +7,7 @@
 </head>
 <body>
     <p>Hello Discussion!</p>
-    <form onsubmit="submitForm();">
+    <form id="editForm">
     <label>topic</label>
     <input type="text" id="topic" name="topic" />
     </form>
@@ -15,7 +15,7 @@
 <script>
 	$('#editForm').on('submit', function(){
 		$.ajax({
-			url: "/api/discussion",
+			url: "/discussion",
 			type: "PUT",
 			data: {
 				topic: $('#topic').val(),

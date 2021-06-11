@@ -7,12 +7,13 @@
 </head>
 <body>
     <p>Hello ${class.name}!</p>
-    <form onsubmit="submitForm();">
+    <form id="editForm">
     <#list class.properties as property>
-    <label>${property.name}</label>
     <#if property.type.name?contains("String")>
+    <label>${property.name}</label>
     <input type="text" id="${property.name}" name="${property.name}" />
     <#elseif property.type.name?contains("Integer")>
+    <label>${property.name}</label>
     <input type="number" id="${property.name}" name="${property.name}" />
     </#if>
     </#list>
@@ -21,11 +22,13 @@
 <script>
 	$('#editForm').on('submit', function(){
 		$.ajax({
-			url: "/api/${class.name?uncap_first}",
+			url: "/${class.name?uncap_first}",
 			type: "PUT",
 			data: {
 			<#list class.properties as property >
+			<#if property.type.name?contains("String") || property.type.name?contains("Integer")>
 				${property.name}: $('#${property.name}').val(),
+			</#if>
 			</#list>
 			},
 			dataType: 'json',

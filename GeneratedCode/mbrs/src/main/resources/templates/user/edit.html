@@ -7,7 +7,7 @@
 </head>
 <body>
     <p>Hello User!</p>
-    <form onsubmit="submitForm();">
+    <form id="editForm">
     <label>username</label>
     <input type="text" id="username" name="username" />
     <label>password</label>
@@ -18,18 +18,12 @@
     <input type="text" id="lastName" name="lastName" />
     <label>summary</label>
     <input type="text" id="summary" name="summary" />
-    <label>posts</label>
-    <label>connection</label>
-    <label>experience</label>
-    <label>address</label>
-    <label>skills</label>
-    <label>educations</label>
     </form>
 </body>
 <script>
 	$('#editForm').on('submit', function(){
 		$.ajax({
-			url: "/api/user",
+			url: "/user",
 			type: "PUT",
 			data: {
 				username: $('#username').val(),
@@ -37,12 +31,6 @@
 				firstName: $('#firstName').val(),
 				lastName: $('#lastName').val(),
 				summary: $('#summary').val(),
-				posts: $('#posts').val(),
-				connection: $('#connection').val(),
-				experience: $('#experience').val(),
-				address: $('#address').val(),
-				skills: $('#skills').val(),
-				educations: $('#educations').val(),
 			},
 			dataType: 'json',
 			success: function(res){

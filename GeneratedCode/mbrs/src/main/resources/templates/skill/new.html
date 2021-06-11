@@ -7,22 +7,18 @@
 </head>
 <body>
     <p>Hello Skill!</p>
-    <form onsubmit="submitForm();">
+    <form id="newForm">
     <label>name</label>
     <input type="text" id="name" name="name" />
-    <label>jobOffer</label>
-    <label>user</label>
     </form>
 </body>
 <script>
-	$('#editForm').on('submit', function(){
+	$('#newForm').on('submit', function(){
 		$.ajax({
-			url: "/api/skill",
+			url: "/skill",
 			type: "POST",
 			data: {
 				name: $('#name').val(),
-				jobOffer: $('#jobOffer').val(),
-				user: $('#user').val(),
 			},
 			dataType: 'json',
 			success: function(res){

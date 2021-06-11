@@ -7,23 +7,15 @@
 </head>
 <body>
     <p>Hello Education!</p>
-    <form onsubmit="submitForm();">
-    <label>startDate</label>
-    <label>endDate</label>
-    <label>module</label>
-    <label>user</label>
+    <form id="editForm">
     </form>
 </body>
 <script>
 	$('#editForm').on('submit', function(){
 		$.ajax({
-			url: "/api/education",
+			url: "/education",
 			type: "PUT",
 			data: {
-				startDate: $('#startDate').val(),
-				endDate: $('#endDate').val(),
-				module: $('#module').val(),
-				user: $('#user').val(),
 			},
 			dataType: 'json',
 			success: function(res){

@@ -7,30 +7,24 @@
 </head>
 <body>
     <p>Hello Address!</p>
-    <form onsubmit="submitForm();">
+    <form id="newForm">
     <label>street</label>
     <input type="text" id="street" name="street" />
     <label>city</label>
     <input type="text" id="city" name="city" />
     <label>country</label>
     <input type="text" id="country" name="country" />
-    <label>user</label>
-    <label>company</label>
-    <label>educationInstitution</label>
     </form>
 </body>
 <script>
-	$('#editForm').on('submit', function(){
+	$('#newForm').on('submit', function(){
 		$.ajax({
-			url: "/api/address",
+			url: "/address",
 			type: "POST",
 			data: {
 				street: $('#street').val(),
 				city: $('#city').val(),
 				country: $('#country').val(),
-				user: $('#user').val(),
-				company: $('#company').val(),
-				educationInstitution: $('#educationInstitution').val(),
 			},
 			dataType: 'json',
 			success: function(res){

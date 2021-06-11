@@ -7,19 +7,15 @@
 </head>
 <body>
     <p>Hello Connection!</p>
-    <form onsubmit="submitForm();">
-    <label>active</label>
-    <label>user</label>
+    <form id="editForm">
     </form>
 </body>
 <script>
 	$('#editForm').on('submit', function(){
 		$.ajax({
-			url: "/api/connection",
+			url: "/connection",
 			type: "PUT",
 			data: {
-				active: $('#active').val(),
-				user: $('#user').val(),
 			},
 			dataType: 'json',
 			success: function(res){
