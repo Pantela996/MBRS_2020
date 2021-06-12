@@ -50,6 +50,15 @@ ${class.visibility} class ${class.name}Controller {
 		return "${class.name?uncap_first}/index";
 	}
 	
+	@RequestMapping(value = "/new", method = RequestMethod.GET)
+	String getCreate${class.name}Form () {
+		return "${class.name?uncap_first}/new";
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	String getEdit${class.name}Form () {
+		return "${class.name?uncap_first}/edit";
+	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	ResponseEntity<${class.name}DTO> get${class.name}(@PathVariable Long id) {
