@@ -171,15 +171,6 @@ public class ModelAnalyzer {
 		int lower = p.getLower();
 		int upper = p.getUpper();
 		
-		boolean association = false;
-		String aggregationKind = "none";
-		String associtaionend = "";
-		if(p.getAssociation() != null) {
-			association = true;
-			aggregationKind = p.getAggregation().toString().toLowerCase();
-
-		}
-		
 		FMProperty fmProperty = new FMProperty(
 				attName, 
 				new FMType(typeName, typePackage), 
@@ -187,6 +178,11 @@ public class ModelAnalyzer {
 				lower, 
 				upper
 		);
+		
+		// Hidden
+		Stereotype hiddenStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "Hidden");
+		Boolean hidden = (hiddenStereotype != null)? true : false;
+		fmProperty.setHidden(hidden);
 		
 		// UI Element
 		Stereotype uiElementStereotype = StereotypesHelper.getAppliedStereotypeByString(p, "UIElement");
@@ -301,8 +297,12 @@ public class ModelAnalyzer {
 		    fmProperty.setUiProperty(uiProperty);
 		    System.out.println("UIProperty(label, formType, readOnly): " + label + " " + formType + " " + readOnly);
 		}
-
 		
+		// Associations
+		FMAssociation fma = FMModel.getInstance().getAssociationByClassNames(cl.getName(), attType.getName());
+		String association = determineAssociation(cl.getName(), p, fma);
+		fmProperty.setAssociation(association);
+
 		return fmProperty;
 	}
 

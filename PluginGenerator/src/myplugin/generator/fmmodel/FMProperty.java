@@ -13,6 +13,8 @@ public class FMProperty extends FMElement  {
 	
 	private String association;
 	
+	private Boolean hidden;
+	
 	private Validation validation;
 	
 	private UIProperty uiProperty;
@@ -78,5 +80,15 @@ public class FMProperty extends FMElement  {
 	public void setUiProperty(UIProperty uiProperty) {
 		this.uiProperty = uiProperty;
 	}
+
+	public Boolean getHidden() {
+		return hidden;
+	}
+
+	public void setHidden(Boolean hidden) {
+		this.hidden = hidden;
+	}
+	
+	
 	
 }

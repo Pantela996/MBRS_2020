@@ -12,8 +12,17 @@
         <tbody>
 		    <tr th:each="listElement: ${r"${"}list}">
 				<#list class.properties as property>
-			    <#if property.type.typePackage?contains("Primitive")>
-		       	<td th:text="${r"${"}listElement.${property.name}}" />
+				<#if property.hidden != true>
+				    <#if property.type == "String">
+				    	<label>${property.name}</label>
+			       		<td th:text="${r"${"}listElement.${property.name}}" />
+			        <#elseif property.type == "Integer">
+			        	<label>${property.name}</label>
+			       		<td th:number="${r"${"}listElement.${property.name}}" />
+			       	<#elseif property.type == "date">
+			       		<label>${property.name}</label>
+			       		<td th:date="${r"${"}listElement.${property.name}}" />
+			        </#if>
 		        </#if>
 		        </#list>
 		    </tr>
