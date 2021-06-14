@@ -1,9 +1,8 @@
 package myplugin.generator.fmmodel;
 
 public class TextValidation extends Validation {
-
+	
 	private Integer minLength;
-
 	private Integer maxLength;
 
 	public TextValidation(Boolean unique, Boolean notNull, Integer minLength, Integer maxLength) {

@@ -15,6 +15,8 @@ public class FMProperty extends FMElement  {
 	
 	private Validation validation;
 	
+	private UIProperty uiProperty;
+	
 	public FMProperty(String name, FMType type, String visibility, int lower, int upper) {
 		super(name);
 		this.type = type;
@@ -67,6 +69,14 @@ public class FMProperty extends FMElement  {
 
 	public void setValidation(Validation validation) {
 		this.validation = validation;
+	}
+	
+	public UIProperty getUiProperty() {
+		return uiProperty;
+	}
+
+	public void setUiProperty(UIProperty uiProperty) {
+		this.uiProperty = uiProperty;
 	}
 	
 }

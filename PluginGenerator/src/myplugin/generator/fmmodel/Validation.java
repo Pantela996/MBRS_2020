@@ -3,7 +3,6 @@ package myplugin.generator.fmmodel;
 public class Validation {
 
 	private Boolean unique;
-
 	private Boolean notNull;
 
 	public Validation(Boolean unique, Boolean notNull) {
@@ -27,5 +26,5 @@ public class Validation {
 	public void setNotNull(Boolean notNull) {
 		this.notNull = notNull;
 	}
-
 }
+
